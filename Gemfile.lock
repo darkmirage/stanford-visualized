@@ -8,6 +8,16 @@ GIT
       guard (>= 2.1.0)
       guard-compat (~> 1.1)
 
+GIT
+  remote: git://github.com/guard/guard-jammit.git
+  revision: cf22cea7292f677430ca9a4d269aa1c43f1cf334
+  branch: master
+  specs:
+    guard-jammit (1.0.1)
+      guard (>= 2.1.0)
+      guard-compat (~> 1.0)
+      jammit
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -18,6 +28,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    cssmin (1.0.3)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
@@ -44,6 +55,10 @@ GEM
       sass (>= 3.1)
     hitimes (1.2.2)
     http_parser.rb (0.6.0)
+    jammit (0.6.6)
+      cssmin (>= 1.0.3)
+      jsmin (>= 1.0.1)
+    jsmin (1.0.1)
     listen (2.8.4)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -80,6 +95,8 @@ DEPENDENCIES
   guard
   guard-coffeescript!
   guard-copy
+  guard-jammit!
   guard-livereload
   guard-sass
+  jammit
   sinatra

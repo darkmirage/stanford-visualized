@@ -1,0 +1,10 @@
+gzip_assets: off
+compress_assets: off
+
+javascripts:
+  app.min:
+    - app/js/**/*.js
+
+stylesheets:
+  style.min:
+    - app/css/**/*.css
