@@ -1,0 +1,17 @@
+.toolbar {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.fixed-toolbar {
+  position: fixed;
+  margin-top: 0;
+  top: 0;
+  z-index: 9999;
+  background-color: rgba(255,255,255,0.7)
+}
+
+#body {
+  height: 2000px;
+  background: #ccc;
+}

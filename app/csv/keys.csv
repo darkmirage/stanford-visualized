@@ -1,0 +1,182 @@
+id,name,school,cat
+undeclared,Undeclared,misc,aggr
+total,Total,total,aggr
+school_biz,SCHOOL OF BUSINESS,dept,dept
+business,Business Administration,school_biz,prof
+management,Management,school_biz,prof
+bizres,Business Research,school_biz,prof
+school_es,SCHOOL OF EARTH SCIENCES,dept,dept
+appes,Applied Earth Sciences,school_es,engr
+eees,"Earth, Energy and Environmental Sciences",school_es,physci
+earthsys,Earth Systems,school_es,inter
+ere,Energy Resources Engineering,school_es,engr
+eess,Environmental Earth System Science,school_es,physci
+envres,Interdisciplinary Program in Environment and Resources,school_es,inter
+ges,Geological and Environmental Sciences,school_es,physci
+geo,Geology,school_es,physci
+geophys,Geophysics,school_es,physci
+minengr,Mineral Engineering,school_es,engr
+petrolengr,Petroleum Engineering,school_es,engr
+hydro,Hydrology,school_es,physci
+school_educ,SCHOOL OF EDUCATION,dept,dept
+educ,Education,school_educ,hum
+educhum,Education and Humanities,school_educ,hum
+educbiz,Education Business,school_educ,hum
+healthed,Health Education,school_educ,hum
+school_engr,SCHOOL OF ENGINEERING,dept,dept
+aa,Aeronautics and Astronautics,school_engr,engr
+bioe,Bioengineering,school_engr,engr
+chemeng,Chemical Engineering,school_engr,engr
+cee,Civil and Environmental Engineering,school_engr,engr
+ce,Civil Engineering,school_engr,engr
+cme,Computational and Mathematical Engineering,school_engr,engr
+cs,Computer Science,school_engr,engr
+ee,Electrical Engineering,school_engr,engr
+engr,Engineering,school_engr,engr
+engrsci,Engineering Science,school_engr,engr
+engr_es,Engineering-Economic Systems,school_engr,engr
+engr_esor,Engineering-Economic Systems and Operations Research,school_engr,engr
+enve,Environmental Engineering,school_engr,engr
+genengr,General Engineering,school_engr,engr
+idm_engr,Individually Designed Major in Engineering,school_engr,engr
+ie,Industrial Engineering,school_engr,engr
+ms&e,Management Science and Engineering,school_engr,inter
+matsci,Materials Science and Engineering,school_engr,engr
+me,Mechanical Engineering,school_engr,engr
+opsres,Operations Research,school_engr,math
+preengr,Pre-Engineering,school_engr,engr
+sccm,Scientific Computing and Computational Mathematics,school_engr,math
+school_hs,SCHOOL OF HUMANITIES AND SCIENCES,dept,dept
+aaas,African and African American Studies,school_hs,hum
+africast,African Studies,school_hs,hum
+amstud,American Studies,school_hs,hum
+anthsci,Anthropological Sciences,school_hs,socsci
+anthro,Anthropology,school_hs,socsci
+archlgy,Archaeology,school_hs,socsci
+appphys,Applied Physics,school_hs,physci
+appmech,Applied Mechanics,school_hs,physci
+architect,Architecture,school_hs,hum
+art,Art,school_hs,hum
+arthum,Art and Humanities,school_hs,hum
+arthist,Art History,school_hs,hum
+artstudi,Art Practice,school_hs,hum
+asnamst,Asian American Studies,school_hs,hum
+bio,Biology,school_hs,physci
+biophys,Biophysics,school_hs,physci
+chs,Chicana/o and Latina/o Studies,school_hs,hum
+chem,Chemistry,school_hs,physci
+chinese,Chinese,school_hs,hum
+classics,Classics,school_hs,hum
+classicshum,Classics and Humanities,school_hs,hum
+comm,Communication,school_hs,hum
+complit,Comparative Literature,school_hs,hum
+complhum,Comparative Literature and Humanities,school_hs,hum
+csre,Comparative Studies in Race and Ethnicity,school_hs,hum
+csanthro,Cultural and Social Anthropology,school_hs,hum
+design,Design,school_hs,hum
+docfilm,Documentary Film and Video,school_hs,hum
+drama,Drama,school_hs,hum
+dramahum,Drama and Humanities,school_hs,hum
+eastasn,East Asian Studies,school_hs,hum
+econ,Economics,school_hs,socsci
+english,English,school_hs,hum
+enghum,English and Humanities,school_hs,hum
+engfrenlit,English and French Literature,school_hs,hum
+engitalit,English and Italian Literature,school_hs,hum
+enggerlit,English and German Literature,school_hs,hum
+engspnlit,English and Spanish Literature,school_hs,hum
+femst,Feminist Studies,school_hs,hum
+filmstud,Film and Media Studies,school_hs,hum
+finmath,Financial Mathematics,school_hs,math
+foodres,Food Research,school_hs,physci
+french,French,school_hs,hum
+frenchhum,French and Humanities,school_hs,hum
+frenchital,French and Italian,school_hs,hum
+frenchenglit,French and English Literature,school_hs,hum
+frenchitalit,French and Italian Literature,school_hs,hum
+italian,Italian,school_hs,hum
+italfrenlit,Italian and French Literature,school_hs,hum
+italenglit,Italian and English Literature,school_hs,hum
+geography,Geography,school_hs,hum
+german,German Studies,school_hs,hum
+germanhum,German Studies and Humanities,school_hs,hum
+history,History,school_hs,hum
+histhum,History and Humanities,school_hs,hum
+humsp,Humanities,school_hs,hum
+humbio,Human Biology,school_hs,inter
+humlang,Human Language,school_hs,hum
+ilac,Iberian and Latin American Cultures,school_hs,hum
+ilachum,Iberian and Latin American Cultures and Humanities,school_hs,hum
+idm,Individually Designed Major,school_hs,inter
+ips,International Policy Studies,school_hs,inter
+ir,International Relations,school_hs,socsci
+japanese,Japanese,school_hs,hum
+latinam,Latin American Studies,school_hs,hum
+linguist,Linguistics,school_hs,socsci
+mcs,Mathematical and Computational Science,school_hs,math
+math,Mathematics,school_hs,math
+medieval,Medieval Studies,school_hs,hum
+mtl,Modern Thought and Literature,school_hs,hum
+mtlhum,Modern Thought and Literature and Humanities,school_hs,hum
+mdneurlit,Modern European Literature,school_hs,hum
+music,Music,school_hs,hum
+musichum,Music and Humanities,school_hs,hum
+nativeam,Native American Studies,school_hs,hum
+phil,Philosophy,school_hs,hum
+philhum,Philosophy and Humanities,school_hs,hum
+philrelig,Philosophy and Religious Studies,school_hs,hum
+physics,Physics,school_hs,physci
+physicalsci,Physical Sciences,school_hs,physci
+polisci,Political Science,school_hs,socsci
+psych,Psychology,school_hs,socsci
+publpol,Public Policy,school_hs,socsci
+religst,Religious Studies,school_hs,hum
+relighum,Religious Studies and Humanities,school_hs,hum
+rees,"Russian, East European and Eurasian Studies",school_hs,hum
+russian,Russian,school_hs,hum
+sts,"Science, Technology, and Society",school_hs,inter
+slavic,Slavic Languages and Literature,school_hs,hum
+slavichum,Slavic Languages and Literature and Humanities,school_hs,hum
+socthink,Social Thought and Institutions,school_hs,hum
+soc,Sociology,school_hs,socsci
+spanport,Spanish,school_hs,hum
+spanhum,Spanish and Humanities,school_hs,hum
+stats,Statistics,school_hs,math
+symsys,Symbolic Systems,school_hs,inter
+urbanst,Urban Studies,school_hs,socsci
+school_law,SCHOOL OF LAW,dept,dept
+law,Law,school_law,prof
+prelaw,Pre-Law,school_law,prof
+lawbiz,Law Business,school_law,prof
+school_med,SCHOOL OF MEDICINE,dept,dept
+medadp,Advanced Degree Programs,school_med,prof
+anatomy,Anatomy,school_med,prof
+bioc,Biochemistry,school_med,prof
+biomedin,Biomedical Informatics,school_med,prof
+cbio,Cancer Biology,school_med,prof
+cellbio,Cell Biology,school_med,prof
+csb,Chemical and Systems Biology,school_med,prof
+comadm,Combined Admission Mode,school_med,prof
+dbio,Developmental Biology,school_med,prof
+epidem,Epidemiology,school_med,prof
+gene,Genetics,school_med,prof
+hrp,Health Services Research,school_med,prof
+hearspeech,Hearing and Speech Sciences,school_med,prof
+humgene,Human Genetics,school_med,prof
+immunol,Immunology,school_med,prof
+med,Medicine,school_med,prof
+medmicrobio,Medical Microbiology,school_med,prof
+medscience,Medical Sciences,school_med,prof
+molpharma,Molecular Pharmacology,school_med,prof
+mi,Microbiology and Immunology,school_med,prof
+nepr,Neurosciences,school_med,prof
+mcp,Molecular and Cellular Physiology,school_med,prof
+nurse,Nursing,school_med,prof
+pharma,Pharmacology,school_med,prof
+physio,Physiology,school_med,prof
+stemrem,Stem Cell Biology and Regenerative Medicine,school_med,prof
+sbio,Structural Biology,school_med,prof
+phystherapy,Physical Therapy,school_med,prof
+gradspec,Graduate Special Programs,misc,inter
+interdept,Interdepartmental,misc,inter
+unaffliated,UNAFFLIATED,dept,dept

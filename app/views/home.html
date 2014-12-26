@@ -1,0 +1,18 @@
+<div ng-controller="VizCtrl">
+  <div ng-class="{ hidden:!loading }" class="large-loading">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+    <p>loading</p>
+  </div>
+
+  <div ng-class="{ hidden:loading }">
+    <div main-toolbar></div>
+
+    <select ng-model="year" ng-options="year as year for year in years" class="form-control"></select>
+
+    <div class="row">
+      <div class="col-md-12" id="body">
+      </div>
+    </div>
+  </div>
+
+</div>

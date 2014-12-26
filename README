@@ -1,0 +1,8 @@
+Make sure you have Ruby bundler and Node.js NPM installed.
+
+1. gem install
+2. npm install -g bower
+3. bower install
+4. bundle exec guard
+5. ./server.rb
+6. http://localhost:4567
