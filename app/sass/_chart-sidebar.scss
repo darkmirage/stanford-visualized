@@ -9,7 +9,7 @@
     box-shadow: 0 0 10px rgba(100,100,100,0.5);
 
     .bar-label, .bar-count {
-      visibility: visible;
+      fill-opacity: 1.0;
     }
   }
 }
@@ -24,7 +24,7 @@
   font-weight: normal;
   text-transform: lowercase;
   font-size: 12px;
-  visibility: hidden;
+  fill-opacity: 0;
   font-family: Metrophobic, sans-serif;
   fill: #333;
 }

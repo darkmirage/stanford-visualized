@@ -73,7 +73,7 @@ initSidebar = (scope, element, attrs) ->
     # Draw bars
     groupsEnter.append 'rect'
       .attr 'class', 'bar'
-      .attr 'x', barSpacing
+      .attr 'x', (d) -> svgJ.width() - scale d[column] + barSpacing
       .attr 'y', barSpacing
       .attr 'width', 0
       .attr 'height', barHeight
@@ -83,6 +83,7 @@ initSidebar = (scope, element, attrs) ->
     bars = groups.select '.bar'
 
     bars.transition()
+      .attr 'x', (d) -> svgJ.width() - scale d[column] + barSpacing
       .attr 'width', (d) -> scale d[column]
       .attr 'fill', (d) -> scope.d3Display.getColor d
       .attr 'fill-opacity', 1.0
@@ -95,14 +96,12 @@ initSidebar = (scope, element, attrs) ->
       .text (d) -> d.id
       .attr 'class', 'bar-label'
       .attr 'y', textYOffset
-      .attr 'x', svgJ.width() - textXOffset
-      .attr 'text-anchor', 'end'
+      .attr 'x', textXOffset
       .attr 'fill-opacity', 0
 
     labels = groups.select '.bar-label'
 
     labels.transition()
-      .attr 'x', svgJ.width() - textXOffset
       .attr 'fill-opacity', 1.0
       .duration duration
       .delay groupTransitionDuration
@@ -112,15 +111,16 @@ initSidebar = (scope, element, attrs) ->
     groupsEnter.append 'text'
       .text (d) -> d[column]
       .attr 'class', 'bar-count'
+      .attr 'text-anchor', 'end'
       .attr 'y', textYOffset
-      .attr 'x', (d) -> textXOffset + scale d[column]
+      .attr 'x', (d) -> svgJ.width() - scale d[column] + barSpacing + textXOffset
       .attr 'fill-opacity', 0
 
     counts = groups.select '.bar-count'
 
     counts.transition()
       .text (d) -> d[column]
-      .attr 'x', (d) -> textXOffset + scale d[column]
+      .attr 'x', (d) -> svgJ.width() - scale d[column] + barSpacing + textXOffset
       .attr 'fill-opacity', 1.0
       .duration duration
       .delay groupTransitionDuration
