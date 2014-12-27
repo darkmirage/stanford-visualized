@@ -4,29 +4,22 @@
   margin-bottom: 30px;
 
   &:hover {
-    @include elevated-layer();
-    position: relative;
-    box-shadow: 0 0 10px rgba(100,100,100,0.5);
+    // @include elevated-layer();
+    // position: relative;
+    // box-shadow: 0 0 10px rgba(100,100,100,0.5);
 
-    .bar-label, .bar-count {
+    .bar-count {
       fill-opacity: 1.0;
     }
   }
 }
 
-.charts-sidebar-always-show {
-  .bar-label, .bar-count {
-    visibility: visible;
-  }
-}
-
-.bar-label, .bar-count {
+.bar-count {
   font-weight: normal;
   text-transform: lowercase;
   font-size: 12px;
   fill-opacity: 0;
   font-family: Metrophobic, sans-serif;
-  fill: #333;
 }
 
 .bar-count {
@@ -37,16 +30,8 @@
   &:hover {
     cursor: pointer;
 
-    .bar-label {
-      fill: #fff;
-    }
-
-    .bar-count {
-      fill: #fff;
-    }
-
     .bar-background {
-      fill: #333;
+      fill: #eee;
     }
   }
 }

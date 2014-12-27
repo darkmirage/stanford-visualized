@@ -89,7 +89,7 @@ initSidebar = (scope, element, attrs) ->
       .attr 'x', (d) -> barStart - scale d[column]
       .attr 'width', (d) -> scale d[column]
       .attr 'fill', (d) -> scope.d3Display.getColor d
-      .attr 'fill-opacity', 1.0
+      .attr 'fill-opacity', (d) -> scope.d3Display.getOpacity d
       .duration duration
       .delay groupTransitionDuration
 
@@ -100,11 +100,13 @@ initSidebar = (scope, element, attrs) ->
       .attr 'class', 'bar-label'
       .attr 'y', textYOffset
       .attr 'x', barStart + textXOffset
+      .attr 'fill', (d) -> scope.d3Display.getColor d
       .attr 'fill-opacity', 0
 
     labels = groups.select '.bar-label'
 
     labels.transition()
+      .attr 'fill', (d) -> scope.d3Display.getColor d
       .attr 'fill-opacity', 1.0
       .duration duration
       .delay groupTransitionDuration
@@ -117,6 +119,7 @@ initSidebar = (scope, element, attrs) ->
       .attr 'text-anchor', 'end'
       .attr 'y', textYOffset
       .attr 'x', (d) -> barStart - scale d[column] + textXOffset
+      .attr 'fill', (d) -> scope.d3Display.getColor d
       .attr 'fill-opacity', 0
 
     counts = groups.select '.bar-count'
@@ -124,6 +127,7 @@ initSidebar = (scope, element, attrs) ->
     counts.transition()
       .text (d) -> d[column]
       .attr 'x', (d) -> barStart - scale d[column] + textXOffset
+      .attr 'fill', (d) -> scope.d3Display.getColor d
       .attr 'fill-opacity', 1.0
       .duration duration
       .delay groupTransitionDuration

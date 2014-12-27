@@ -30,9 +30,15 @@ app.factory 'd3Display', ->
 
     getColor: (d) ->
       if d.id not in highlight
-        d3.rgb(230, 230, 230)
+        d3.rgb(150, 150, 150)
       else
         color(d.id)
+
+    getOpacity: (d) ->
+      if d.id not in highlight
+        0.3
+      else
+        1.0
   }
 
 app.factory 'd3Helper', ->
