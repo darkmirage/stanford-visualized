@@ -9,7 +9,5 @@ group :development do
   gem 'guard-copy', require: false
   gem 'jammit'
   gem 'sinatra'
-
-  # Uncomment if you do not have nodejs installed
-  # gem 'therubyracer'
+  gem 'rake'
 end
