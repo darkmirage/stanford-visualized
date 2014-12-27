@@ -10,7 +10,7 @@ coffeescript_options = {
   output: "#{source_dir}/js",
   all_on_start: true,
   shallow: false,
-  patterns: [%r{.+\.(coffee|coffee\.md|litcoffee)$}]
+  patterns: [%r{^app/.+\.(coffee|coffee\.md|litcoffee)$}]
 }
 
 guard 'coffeescript', coffeescript_options do
@@ -32,13 +32,13 @@ guard :copy, from: 'bower_components',
               to: "#{target_dir}/lib",
               mkpath: true,
               run_at_start: build_at_start do
-  watch(%r{.+\.(min\.js|min\.js\.map)$})
+  watch(%r{.+\.(min\.css|min\.js|min\.js\.map)$})
 end
 
 guard :jammit, output_folder: "#{target_dir}/assets",
                package_on_start: build_at_start do
-  watch(%r{#{Regexp.quote(source_dir)}/css/.+\.css})
-  watch(%r{#{Regexp.quote(source_dir)}/js/.+\.js})
+  watch(%r{^#{Regexp.quote(source_dir)}/css/.+\.css})
+  watch(%r{^#{Regexp.quote(source_dir)}/js/.+\.js})
 end
 
 guard :livereload do
