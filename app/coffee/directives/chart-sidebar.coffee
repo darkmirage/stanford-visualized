@@ -11,6 +11,7 @@ initSidebar = (scope, element, attrs) ->
   barSpacing = 2
   textYOffset = 15 # not sure what this should be based off
   textXOffset = 5
+  textWidth = 100
   barSlot = barHeight + barSpacing * 2
 
   scale = d3.scale.linear()
@@ -31,11 +32,13 @@ initSidebar = (scope, element, attrs) ->
     data = scope.sidebarData
     column = scope.displayColumn
 
+    barStart = svgJ.width() + barSpacing - textWidth
+
     # Update height of svg according to numbe of elements present
     svgJ.height((data.length + 1) * barSlot)
 
     scale.domain [0, maxRange]
-    scale.range [0, svgJ.width() - barSpacing * 2]
+    scale.range [0, svgJ.width() - textWidth - barSpacing * 2]
 
     groups = svg.selectAll('svg').data data, (d) -> d.id
 
@@ -73,7 +76,7 @@ initSidebar = (scope, element, attrs) ->
     # Draw bars
     groupsEnter.append 'rect'
       .attr 'class', 'bar'
-      .attr 'x', (d) -> svgJ.width() - scale d[column] + barSpacing
+      .attr 'x', (d) -> barStart - scale d[column]
       .attr 'y', barSpacing
       .attr 'width', 0
       .attr 'height', barHeight
@@ -83,7 +86,7 @@ initSidebar = (scope, element, attrs) ->
     bars = groups.select '.bar'
 
     bars.transition()
-      .attr 'x', (d) -> svgJ.width() - scale d[column] + barSpacing
+      .attr 'x', (d) -> barStart - scale d[column]
       .attr 'width', (d) -> scale d[column]
       .attr 'fill', (d) -> scope.d3Display.getColor d
       .attr 'fill-opacity', 1.0
@@ -96,7 +99,7 @@ initSidebar = (scope, element, attrs) ->
       .text (d) -> d.id
       .attr 'class', 'bar-label'
       .attr 'y', textYOffset
-      .attr 'x', textXOffset
+      .attr 'x', barStart + textXOffset
       .attr 'fill-opacity', 0
 
     labels = groups.select '.bar-label'
@@ -113,14 +116,14 @@ initSidebar = (scope, element, attrs) ->
       .attr 'class', 'bar-count'
       .attr 'text-anchor', 'end'
       .attr 'y', textYOffset
-      .attr 'x', (d) -> svgJ.width() - scale d[column] + barSpacing + textXOffset
+      .attr 'x', (d) -> barStart - scale d[column] + textXOffset
       .attr 'fill-opacity', 0
 
     counts = groups.select '.bar-count'
 
     counts.transition()
       .text (d) -> d[column]
-      .attr 'x', (d) -> svgJ.width() - scale d[column] + barSpacing + textXOffset
+      .attr 'x', (d) -> barStart - scale d[column] + textXOffset
       .attr 'fill-opacity', 1.0
       .duration duration
       .delay groupTransitionDuration
