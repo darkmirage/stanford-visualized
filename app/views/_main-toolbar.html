@@ -1,5 +1,6 @@
 <div class="row toolbar">
-  <div class="col-sm-6">
+  <div class="col-lg-2"></div>
+  <div class="col-lg-4 col-sm-6">
     <ul class="nav nav-pills">
       <li class="active"><a href="#">Major</a></li>
       <li><a href="#">Year</a></li>
@@ -7,7 +8,8 @@
     </ul>
   </div>
 
-  <div class="col-sm-6">
+  <div class="col-lg-4 col-sm-6">
     <p>{{ year }}</p>
+    <select ng-model="year" ng-options="year as year for year in years" class="form-control"></select>
   </div>
 </div>

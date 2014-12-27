@@ -147,10 +147,10 @@ initSidebar = (scope, element, attrs) ->
   watches.push scope.$watchCollection 'idFilters', -> draw(0)
 
   resizer = -> draw(0)
-  $(window).on 'resize', resizer
+  scope.windowResize.register resizer
 
   element.on '$destroy', ->
-    $(window).off 'resize', -> resizer
+    scope.windowResize.remove resizer
 
     # Clear watches
     watch() for watch in watches

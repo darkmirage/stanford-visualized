@@ -1,5 +1,6 @@
 app = angular.module 'stanfordViz'
 
+# Allows any nested modules to set page titles
 app.factory 'pageMeta', ->
   title = ''
   return {
@@ -12,10 +13,41 @@ app.factory 'pageMeta', ->
     setTitle: (newTitle) -> title = newTitle
   }
 
+# Consolidate all the $(window).resize() callbacks and implement delay logic
+app.factory 'windowResize', ->
+  callbacks = []
+
+  $(window).resize ->
+    if this.resizeTO
+      clearTimeout(this.resizeTO) 
+    this.resizeTO = setTimeout(
+      ()-> $(this).trigger('resizeEnd')
+      700)
+
+  $(window).bind 'resizeEnd', ->
+    callback() for callback in callbacks
+
+  return {
+    register: (callback) ->
+      callbacks.push callback
+
+    remove: (callback) ->
+      index = callbacks.indexOf callback
+      if index != -1
+        callbacks.splice index, 1
+  }
+
+# Display helpers for d3
 app.factory 'd3Display', ->
   highlight = []
   seen = []
   color = d3.scale.category20()
+
+  getColorById = (id) ->
+    if id not in highlight
+      d3.rgb(150, 150, 150)
+    else
+      color(id)
 
   return {
     addColor: (id) ->
@@ -29,10 +61,9 @@ app.factory 'd3Display', ->
       color.domain(seen)
 
     getColor: (d) ->
-      if d.id not in highlight
-        d3.rgb(150, 150, 150)
-      else
-        color(d.id)
+      getColorById d.id
+
+    getColorById: getColorById
 
     getOpacity: (d) ->
       if d.id not in highlight
@@ -41,13 +72,16 @@ app.factory 'd3Display', ->
         1.0
   }
 
+# Data manipulation helpers for d3
 app.factory 'd3Helper', ->
   return {
     filterByColumn: (data, column, values, exclude=false) ->
+      # filters creates a copy
       data.filter (d) ->
         (d[column] in values and not exclude) or (d[column] not in values and exclude)
 
     sortByColumn: (data, column, descending=false) ->
+      # sort does not create a copy
       data.sort (a, b) ->
         if descending
           b[column] - a[column]
@@ -58,7 +92,7 @@ app.factory 'd3Helper', ->
       return [] if data.length == 0
       map = {}
       map[d[column]] = d[column] for d in data
-      (value for key, value of map).sort (a, b) -> b - a
+      (value for key, value of map).sort (a, b) -> a - b
 
     toggleId: (ids, id) ->
       index = ids.indexOf(id)
@@ -68,6 +102,7 @@ app.factory 'd3Helper', ->
         ids.splice(index, 1)
   }
 
+# Data retrieval for d3
 app.service 'd3Data', ['$q', ($q) ->
   defer = $q.defer()
 

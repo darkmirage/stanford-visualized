@@ -7,13 +7,17 @@
   <div ng-class="{ hidden:loading }">
     <div main-toolbar></div>
 
-    <select ng-model="year" ng-options="year as year for year in years" class="form-control"></select>
-
     <div class="row charts">
-      <div class="col-lg-4 col-lg-push-8 charts-sidebar charts-sidebar-always-show">
-        <div sidebar-chart></div>
+      <div class="col-lg-1"></div>
+
+      <div class="col-lg-7 charts-body">
+        <div line-chart id="c3-target"></div>
       </div>
-      <div class="col-lg-8 col-lg-pull-4 charts-body">
+
+      <div class="col-lg-3 col-lg-offset-0
+                  col-sm-8 col-sm-offset-2
+                  charts-sidebar">
+        <div sidebar-chart></div>
       </div>
     </div>
   </div>

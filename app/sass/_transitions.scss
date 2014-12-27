@@ -5,3 +5,9 @@
 .charts-sidebar {
   transition-duration: 0.4s;
 }
+
+.c3-axis {
+  text, line, path {
+    transition-duration: 0.3s;
+  }
+}

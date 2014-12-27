@@ -6,33 +6,43 @@ vizCtrl = ($scope, d3Config, d3Helper, d3Display) ->
   $scope.years = []
   $scope.majorData = []
   $scope.yearData = []
+  $scope.totalData = []
+  $scope.selectedMajorData = []
 
   $scope.year
   $scope.displayColumn = 'undergrad'
-  $scope.idFilters = ['cs', 'history', 'humbio']
+  $scope.idFilters = ['cs', 'psych', 'econ', 'history', 'humbio']
   $scope.catFilters = []
   $scope.schoolFilters = []
 
   d3Display.initColor($scope.idFilters)
+
+  d3Filter = d3Helper.filterByColumn
+  d3Sort = d3Helper.sortByColumn
 
   $scope.toggleId = (id) ->
     d3Helper.toggleId($scope.idFilters, id)
     d3Display.addColor(id)
 
   updateYearData = ->
-    $scope.yearData = d3Helper.filterByColumn($scope.fullData, 'year', [$scope.year])
+    $scope.yearData = d3Filter($scope.fullData, 'year', [$scope.year])
 
   updateFullMajorData = ->
-    $scope.fullMajorData = d3Helper.filterByColumn($scope.fullData, 'cat', ['aggr', 'dept'], true)
+    $scope.fullMajorData = d3Filter($scope.fullData, 'cat', ['aggr', 'dept'], true)
+
+  updateSelectedMajorData = ->
+    $scope.selectedMajorData = d3Filter($scope.fullMajorData, 'id', $scope.idFilters)
+
+  updateTotalData = ->
+    $scope.totalData = d3Filter($scope.fullData, 'id', ['total'])
 
   updateSidebarRange = ->
     $scope.sidebarMaxRange = d3.max $scope.fullMajorData, (d) -> d[$scope.displayColumn]
 
   updateSidebarData = ->
-    data = $scope.yearData.slice 0
-    data = d3Helper.filterByColumn(data, 'cat', ['aggr', 'dept'], true)
-    data = d3Helper.filterByColumn(data, $scope.displayColumn, [0], true)
-    data = d3Helper.sortByColumn(data, $scope.displayColumn, true)
+    data = d3Filter($scope.yearData, 'cat', ['aggr', 'dept'], true)
+    data = d3Filter(data, $scope.displayColumn, [0], true)
+    d3Sort(data, $scope.displayColumn, true)
     $scope.sidebarData = data
 
   $scope.$watch 'fullData', ->
@@ -43,9 +53,11 @@ vizCtrl = ($scope, d3Config, d3Helper, d3Display) ->
 
     updateYearData()
     updateFullMajorData()
+    updateTotalData()
 
   $scope.$watch 'fullMajorData', ->
     updateSidebarRange()
+    updateSelectedMajorData()
 
   $scope.$watch 'yearData', ->
     updateSidebarData()
@@ -56,6 +68,9 @@ vizCtrl = ($scope, d3Config, d3Helper, d3Display) ->
   $scope.$watch 'displayColumn', ->
     updateSidebarRange()
     updateSidebarData()
+
+  $scope.$watchCollection 'idFilters', ->
+    updateSelectedMajorData()
 
 angular.module 'stanfordViz'
   .controller 'VizCtrl', ['$scope', 'd3Config', 'd3Helper', 'd3Display', vizCtrl]

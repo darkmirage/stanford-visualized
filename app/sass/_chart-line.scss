@@ -1,0 +1,36 @@
+@media (min-width: $screen-lg) {
+  .charts-body {
+    padding-top: 100px;
+    padding-right: 30px;
+  }
+}
+
+.c3-axis-y-label, .c3-axis-x-label {
+  fill-opacity: 0;
+}
+
+.c3-axis text {
+  fill: #969696;
+}
+
+.c3-axis {
+  path, line {
+    stroke: #969696;
+  }
+}
+
+.c3:hover {
+  .c3-axis text {
+    fill: #333;
+  }
+
+  .c3-axis {
+    path, line {
+      stroke: #333;
+    }
+  }
+
+  .c3-axis-y-label, .c3-axis-x-label {
+    fill-opacity: 1.0;
+  }
+}
