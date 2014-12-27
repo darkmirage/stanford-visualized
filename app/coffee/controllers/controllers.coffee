@@ -1,12 +1,12 @@
 # This is the parent controller to all routes
-appCtrl = ($scope, $location, pageMeta, d3Path, d3Data, d3Helper) ->
+appCtrl = ($scope, $location, pageMeta, d3Config, d3Data, d3Helper) ->
   $scope.page = pageMeta
   $scope.isActive = (route) ->
     route == $location.path()
 
   $scope.loading = true
   $scope.fullData = []
-  d3Data.get(d3Path).then (data) ->
+  d3Data.get(d3Config.path).then (data) ->
     $scope.fullData = data
     $scope.loading = false
 
@@ -23,8 +23,8 @@ faqCtrl = ($scope) ->
   $scope.page.setTitle 'FAQs'
 
 angular.module 'stanfordViz'
-  .controller 'AppCtrl', ['$scope', '$location', 'pageMeta', 'd3Path',
-                          'd3Data', appCtrl]
+  .controller 'AppCtrl', ['$scope', '$location', 'pageMeta', 'd3Config',
+                          'd3Data', 'd3Helper', appCtrl]
   .controller 'HomeCtrl', ['$scope', homeCtrl]
   .controller 'ContactCtrl', ['$scope', contactCtrl]
   .controller 'FaqCtrl', ['$scope', faqCtrl]

@@ -1,0 +1,7 @@
+@mixin top-layer() {
+  z-index: 2000;
+}
+
+@mixin elevated-layer() {
+  z-index: 1000;
+}

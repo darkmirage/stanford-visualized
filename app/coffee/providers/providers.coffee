@@ -12,20 +12,54 @@ app.factory 'pageMeta', ->
     setTitle: (newTitle) -> title = newTitle
   }
 
+app.factory 'd3Display', ->
+  highlight = []
+  seen = []
+  color = d3.scale.category20()
+
+  return {
+    addColor: (id) ->
+      if id not in seen
+        seen.push(id)
+        color.domain(seen)
+
+    initColor: (ids) ->
+      highlight = ids
+      seen = ids.slice 0
+      color.domain(seen)
+
+    getColor: (d) ->
+      if d.id not in highlight
+        d3.rgb(230, 230, 230)
+      else
+        color(d.id)
+  }
+
 app.factory 'd3Helper', ->
   return {
     filterByColumn: (data, column, values, exclude=false) ->
       data.filter (d) ->
         (d[column] in values and not exclude) or (d[column] not in values and exclude)
-    sortByColumns: (data, columns, descending=false) ->
-      newData = data.slice 0
-      newData.sort (a, b) ->
-        a.undergrad < b.undergrad
+
+    sortByColumn: (data, column, descending=false) ->
+      data.sort (a, b) ->
+        if descending
+          b[column] - a[column]
+        else
+          a[column] - b[column]
+
     uniqueValues: (data, column) ->
       return [] if data.length == 0
       map = {}
       map[d[column]] = d[column] for d in data
       (value for key, value of map).sort (a, b) -> b - a
+
+    toggleId: (ids, id) ->
+      index = ids.indexOf(id)
+      if index == -1
+        ids.push(id)
+      else
+        ids.splice(index, 1)
   }
 
 app.service 'd3Data', ['$q', ($q) ->

@@ -7,3 +7,8 @@ angular.module 'stanfordViz', ['ngRoute']
       .otherwise        { redirectTo: '/' }
 
   .constant 'd3Path', './csv/data.csv'
+
+  .constant 'd3Config', {
+    path: './csv/data.csv',
+    sidebarEntries: 30
+  }
