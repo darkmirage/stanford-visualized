@@ -13,7 +13,6 @@ app.directive 'toolbarNotFixed', ->
 
 app.directive 'toolbarColumnToggles', ->
   return {
-    link: initToggles,
     templateUrl: 'views/_toolbar-column-toggles.html'
   }
 
@@ -61,23 +60,3 @@ initToolbar = (scope, element, attrs) ->
   element.on '$destroy', ->
     scope.windowResize.remove resizer
     $(window).off 'scroll', scroller
-
-initToggles = (scope, element, attrs) ->
-  columnButtons = $('button[data-chart-toggle]', element)
-
-  updateButtonsState = ->
-    columnButtons.each ->
-      button = $(this)
-      if button.data('chart-toggle-value') is scope.displayColumn[button.data('chart-toggle')]
-        button.addClass('active')
-      else
-        button.removeClass('active')
-
-  updateButtonsState()
-
-  columnButtons.on 'click', ->
-    button = $(this)
-    return if button.hasClass('active')
-    scope.$apply ->
-      scope.displayColumn[button.data('chart-toggle')] = button.data('chart-toggle-value')
-    updateButtonsState()

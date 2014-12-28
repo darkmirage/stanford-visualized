@@ -1,0 +1,18 @@
+<div class="btn-toolbar chart-line-toolbar">
+<div class="btn-group">
+  <a ng-class="{active:mode == 'bars'}" ng-click="setBars()" class="btn btn-default">
+    <i class="fa fa-bar-chart"></i>
+  </a>
+  <a ng-class="{active:mode == 'lines'}" ng-click="setLines()" class="btn btn-default">
+    <i class="fa fa-line-chart"></i>
+  </a>
+</div>
+
+<div class="btn-group">
+  <a ng-class="{active:events.show}" ng-click="toggleEvents()" class="btn btn-default">
+    <i class="fa fa-calendar-o"></i> Show Events
+  </a>
+</div>
+</div>
+
+<div id="c3-target"></div>

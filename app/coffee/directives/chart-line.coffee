@@ -2,14 +2,16 @@ angular.module 'stanfordViz'
   .directive 'lineChart', ->
     return {
       restrict: 'A',
-      link: initLine
+      link: initLine,
+      templateUrl: 'views/_chart-line.html'
     }
 
 initLine = (scope, element, attrs) ->
   cachedColumns = {}
   currentColumns = []
   currentIds = []
-  isGrouped = false
+
+  scope.mode = 'lines'
 
   years = null
 
@@ -45,13 +47,36 @@ initLine = (scope, element, attrs) ->
     years = scope.years.slice 0
     years.unshift 'year'
 
+  matchIds = (ids) ->
+    return false if ids is undefined
+    for id in ids
+      return true if id in currentIds
+    return false
+
+  showEvents = ->
+    # Load event markers for selected IDs
+    if scope.events.show
+      events = 
+        for own key, value of scope.events.items when matchIds(value[1])
+          { value: key, text: value[0] }
+
+      chart.xgrids events
+    else
+      chart.xgrids.remove()
+
+
   loadChart = (unload=[]) ->
     chart.load {
       columns: currentColumns,
       unload: unload
     }
 
-    chart.groups [currentIds] if isGrouped
+    if scope.mode is 'bars'
+      chart.groups [currentIds]
+    else
+      chart.groups []
+
+    showEvents()
 
   draw = ->
     data = scope.data.selectedMajor
@@ -63,23 +88,28 @@ initLine = (scope, element, attrs) ->
     yearStart = scope.year.min
     numYears = scope.years.length
 
-    # Figure out which IDs are gone and should be removed
+    # Figure out which IDs are gone and should be removed and which are new
     removeIds = (id for id in currentIds when id not in ids)
+    newIds = (id for id in ids when id not in currentIds)
+
+    return if removeIds.length is 0 and newIds.length is 0
 
     # Update current ID list
     currentIds = ids.slice 0
 
     # Find the ids that are not yet cached
-    newIds = (id for id in ids when id not in cachedColumns)
+    uncachedIds = (id for id in ids when id not in cachedColumns)
 
-    # Generate zero columns for all years with an extra column
-    cachedColumns[id] = (0 for [0..numYears]) for id in newIds
+    if uncachedIds.length > 0
 
-    # Fill in cache columns using actual data
-    cachedColumns[d.id][d.year - yearStart + 1] = d[column] for d in data
+      # Generate zero columns for all years with an extra column
+      cachedColumns[id] = (0 for [0..numYears]) for id in uncachedIds
 
-    # Use the extra column for the column label
-    cachedColumns[id][0] = id for id in newIds
+      # Fill in cache columns using actual data
+      cachedColumns[d.id][d.year - yearStart + 1] = d[column] for d in data
+
+      # Use the extra column for the column label
+      cachedColumns[id][0] = id for id in uncachedIds
 
     # Retrieve all the columns from the cache
     columns = (cachedColumns[id] for id in ids)
@@ -91,16 +121,27 @@ initLine = (scope, element, attrs) ->
 
     loadChart removeIds
 
-  setBars = ->
-    isGrouped = true
+  scope.setBars = ->
+    scope.mode = 'bars'
     loadChart()
     chart.transform 'bar'
 
-  setLines = ->
-    isGrouped = false
+  scope.setLines = ->
+    scope.mode = 'lines'
     chart.transform 'line'
     loadChart()
 
+  scope.bindKey {
+    combo: 'b',
+    description: 'Show stacked bar charts',
+    callback: -> scope.setBars()
+  }
+  
+  scope.bindKey {
+    combo: 'l',
+    description: 'Show line charts',
+    callback: -> scope.setLines()
+  }
 
   # Rendering callbacks
   watches = []
@@ -118,6 +159,8 @@ initLine = (scope, element, attrs) ->
     currentColumns = []
     currentIds = []
     draw()
+
+  watches.push scope.$watch 'events.show', showEvents
 
   element.on '$destroy', ->
     # Clear watches

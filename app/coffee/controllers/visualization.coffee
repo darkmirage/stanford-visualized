@@ -4,6 +4,8 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
   watchers = []
 
   $scope.d3Display = d3Display
+  $scope.bindKey = (config) ->
+    hotkeys.bindTo($scope).add(config)
 
   $scope.years = []
   $scope.year = {
@@ -25,9 +27,13 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     else
       column.name = "#{column.prefix}_#{column.gender}"
 
-  watchers.push $scope.$watch 'displayColumn.gender', updateColumnName
-  watchers.push $scope.$watch 'displayColumn.prefix', updateColumnName
+  $scope.updatePrefix = (prefix) ->
+    $scope.displayColumn.prefix = prefix
+    updateColumnName()
 
+  $scope.updateGender = (gender) ->
+    $scope.displayColumn.gender = gender
+    updateColumnName()
 
   $scope.data = {
     fullMajor: [],

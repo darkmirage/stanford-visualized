@@ -1,17 +1,23 @@
 <div class="btn-group">
-  <button type="button" class="btn btn-default"
-          data-chart-toggle="prefix" data-chart-toggle-value="undergrad">Undergrad</button>
-  <button type="button" class="btn btn-default"
-          data-chart-toggle="prefix" data-chart-toggle-value="graduate">Graduate</button>
-  <button type="button" class="btn btn-default"
-          data-chart-toggle="prefix" data-chart-toggle-value="total">Total</button>
+  <a class="btn btn-default"
+     ng-class="{active:displayColumn.prefix === 'undergrad'}"
+     ng-click="updatePrefix('undergrad')">Undergrad</a>
+  <a class="btn btn-default"
+     ng-class="{active:displayColumn.prefix === 'graduate'}"
+     ng-click="updatePrefix('graduate')">Graduate</a>
+  <a class="btn btn-default"
+     ng-class="{active:displayColumn.prefix === 'total'}"
+     ng-click="updatePrefix('total')">Total</a>
 </div>
 
 <div class="btn-group">
-  <button type="button" class="btn btn-default"
-          data-chart-toggle="gender" data-chart-toggle-value="men">Male</button>
-  <button type="button" class="btn btn-default"
-          data-chart-toggle="gender" data-chart-toggle-value="women">Female</button>
-  <button type="button" class="btn btn-default"
-          data-chart-toggle="gender" data-chart-toggle-value="all">Total</button>
+  <a class="btn btn-default"
+     ng-class="{active:displayColumn.gender === 'men'}"
+     ng-click="updateGender('men')">Male</a>
+  <a class="btn btn-default"
+     ng-class="{active:displayColumn.gender === 'women'}"
+     ng-click="updateGender('women')">Female</a>
+  <a class="btn btn-default"
+     ng-class="{active:displayColumn.gender === 'all'}"
+     ng-click="updateGender('all')">Total</a>
 </div>

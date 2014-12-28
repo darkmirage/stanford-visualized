@@ -5,6 +5,9 @@
   </div>
 
   <div class="col-lg-2 col-sm-4">
-    <div class="toolbar-year pull-right">{{ year.current }}</div>
+    <div class="pull-right">
+      <span class="toolbar-event">{{ events[year.current][0] }}</span>
+      <span class="toolbar-year">{{ year.current }}</span>
+    </div>
   </div>
 </div>

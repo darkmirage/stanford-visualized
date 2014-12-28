@@ -5,6 +5,11 @@
   }
 }
 
+.chart-line-toolbar {
+  margin-bottom: 10px;
+  margin-left: 55px;
+}
+
 .c3-axis-y-label, .c3-axis-x-label {
   fill-opacity: 0;
 }
@@ -13,10 +18,26 @@
   fill: #969696;
 }
 
+.c3-line {
+  stroke-width: 2px;
+}
+
+.c3-circle {
+  fill-opacity: 0;
+}
+
+.c3-circle._expanded_ {
+  fill-opacity: 1.0;
+}
+
 .c3-axis {
   path, line {
     stroke: #969696;
   }
+}
+
+.c3-hide-xgrid .c3-xgrid-line {
+  visibility: hidden;
 }
 
 .c3:hover {
