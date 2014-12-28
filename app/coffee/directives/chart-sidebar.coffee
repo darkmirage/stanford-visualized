@@ -76,7 +76,7 @@ initSidebar = (scope, element, attrs) ->
     # Draw bars
     groupsEnter.append 'rect'
       .attr 'class', 'bar'
-      .attr 'x', (d) -> barStart - scale d[column]
+      .attr 'x', (d) -> barStart
       .attr 'y', barSpacing
       .attr 'width', 0
       .attr 'height', barHeight
