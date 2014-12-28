@@ -36,8 +36,7 @@ initLine = (scope, element, attrs) ->
         tick: { values: (1963 + i * 10 for i in [0..5]) }
       },
       y: {
-        label: 'Students',
-        tick: { values: (i * 250 for i in [0..100]) }
+        label: 'Students'
       }
     }
   }
