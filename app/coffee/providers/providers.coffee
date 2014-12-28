@@ -2,17 +2,20 @@ app = angular.module 'stanfordViz'
 
 # Allows any nested modules to set page titles
 app.factory 'pageMeta', ->
-  title = ''
-  return {
+  page = {
     loading: true,
-    title: -> title
-    fullTitle: ->
-      if title.length > 0
-        "#{title} | Stanford Visualized"
-      else
-        "Stanford Visualized"
-    setTitle: (newTitle) -> title = newTitle
+    title: '',
+    fullTitle: ''
   }
+
+  page.setTitle = (title) ->
+    page.title = title
+    if title.length > 0
+      page.fullTitle = "#{title} | Stanford Visualized"
+    else
+      page.fullTitle = "Stanford Visualized"
+
+  return page
 
 # Consolidate all the $(window).resize() callbacks and implement delay logic
 app.factory 'windowResize', ->

@@ -1,8 +1,5 @@
 app = angular.module 'stanfordViz'
 
-app.directive 'pageTitle', ->
-  return { template: '{{ page.fullTitle() }}' }
-
 app.directive 'navLink', ->
   return {
     restrict: 'E',

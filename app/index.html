@@ -2,7 +2,7 @@
 <html lang="en" ng-app="stanfordViz" ng-controller="AppCtrl">
 
 <head>
-  <title data-page-title>Stanford Visualized</title>
+  <title ng-bind="page.fullTitle">Stanford Visualized</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic|Metrophobic' rel='stylesheet'>
@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <h1>Stanford Visualized <small>{{ page.title() }}</small></h1>
+    <h1>Stanford Visualized <small ng-bind="page.title"></small></h1>
     <p class="lead">A quantitative look at Stanford's enrollment by major over five decades</p>
   </div>
 </div>
