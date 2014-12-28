@@ -62,6 +62,9 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     d3Helper.toggleId($scope.filters.id, id)
     d3Display.addColor(id)
 
+  $scope.clearIds = ->
+    $scope.filters.id.length = 0
+
   updateYearData = ->
     $scope.data.year = d3Filter($scope.fullData, 'year', [$scope.year.current])
 

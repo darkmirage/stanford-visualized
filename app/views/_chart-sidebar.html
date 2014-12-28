@@ -1,0 +1,14 @@
+<div class="chart-sidebar-toolbar">
+<div class="pull-right">
+  <a ng-click="clearIds()" ng-class="{invisible:filters.id.length === 0}"
+     title="Clear selected majors" data-toggle="tooltip"
+     data-placement="left" data-container="body"
+     class="btn btn-link">
+    <i class="fa fa-times"></i>
+  </a>
+</div>
+</div>
+
+<script>
+  $('.chart-sidebar-toolbar [data-toggle="tooltip"]').tooltip()
+</script>

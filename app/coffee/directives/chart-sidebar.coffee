@@ -2,7 +2,8 @@ angular.module 'stanfordViz'
   .directive 'sidebarChart', ->
     return {
       restrict: 'A',
-      link: initSidebar
+      link: initSidebar,
+      templateUrl: 'views/_chart-sidebar.html'
     }
 
 initSidebar = (scope, element, attrs) ->
