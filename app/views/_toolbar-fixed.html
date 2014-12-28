@@ -6,7 +6,7 @@
 
   <div class="col-lg-2 col-sm-4">
     <div class="pull-right">
-      <span class="toolbar-event">{{ events[year.current][0] }}</span>
+      <span ng-class="{invisible:year.event.length === 0}" class="toolbar-event">{{ year.event }}</span>
       <span class="toolbar-year">{{ year.current }}</span>
     </div>
   </div>
