@@ -7,6 +7,11 @@ angular.module 'stanfordViz'
     }
 
 initLine = (scope, element, attrs) ->
+  watcher = scope.$watch 'data.selectedMajor', ->
+    pageLoaded scope, element, attrs
+    watcher()
+
+pageLoaded = (scope, element, attrs) ->
   cachedColumns = {}
   currentColumns = []
   currentIds = []

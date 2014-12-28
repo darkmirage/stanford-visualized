@@ -7,6 +7,11 @@ angular.module 'stanfordViz'
     }
 
 initSidebar = (scope, element, attrs) ->
+  watcher = scope.$watch 'sidebar.data', ->
+    pageLoaded scope, element, attrs
+    watcher()
+
+pageLoaded = (scope, element, attrs) ->
   groupTransitionDuration = 300
   barHeight = 20
   barSpacing = 2

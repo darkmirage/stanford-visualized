@@ -19,13 +19,10 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     return if year < $scope.year.min or year > $scope.year.max
     $scope.year.current = year
 
-    console.log year
-
     item = $scope.events.items[year.toString()]
     if item is undefined
       $scope.year.event = ''
     else
-      console.log item
       $scope.year.event = item[0]
 
   $scope.displayColumn = {
@@ -101,6 +98,7 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     $scope.sidebar.data = data
 
   watchers.push $scope.$watch 'fullData', ->
+    return if $scope.fullData.length is 0
     $scope.years = d3Helper.uniqueValues($scope.fullData, 'year')
     $scope.year.max = d3.max $scope.years
     $scope.year.min = d3.min $scope.years
