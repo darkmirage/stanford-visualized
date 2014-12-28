@@ -1,6 +1,6 @@
 # This controller provides visualization data to the rendering directives
 vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
-  $scope.page.setTitle 'Home'
+  $scope.page.setTitle ''
   watchers = []
 
   $scope.d3Display = d3Display
@@ -115,12 +115,12 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     watcher() for watcher in watchers
     $scope.page.loading = true
 
-  changeYear = (year) ->
+  $scope.changeYear = (year) ->
     return if year < $scope.year.min or year > $scope.year.max
     $scope.year.current = year
 
-  increaseYear = -> changeYear($scope.year.current + 1)
-  decreaseYear = -> changeYear($scope.year.current - 1)
+  increaseYear = -> $scope.changeYear($scope.year.current + 1)
+  decreaseYear = -> $scope.changeYear($scope.year.current - 1)
 
   hotkeys.bindTo($scope)
     .add {

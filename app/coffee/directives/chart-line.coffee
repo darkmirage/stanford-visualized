@@ -11,6 +11,8 @@ initLine = (scope, element, attrs) ->
   currentColumns = []
   currentIds = []
 
+  c3RectClassMatcher = /(?:c3-event-rect-)([0-9]+)/
+
   scope.mode = 'lines'
 
   years = null
@@ -38,6 +40,13 @@ initLine = (scope, element, attrs) ->
       y: {
         label: 'Students'
       }
+    },
+    legend: {
+      item: {
+        onclick: (id) ->
+          scope.$apply ->
+            scope.toggleId(id)
+      }
     }
   }
 
@@ -53,16 +62,35 @@ initLine = (scope, element, attrs) ->
     return false
 
   showEvents = ->
+    events = []
+    events.push {
+      value: scope.year.current,
+      class: 'c3-chart-current'
+    }
+    events.push {
+      value: scope.year.current,
+      class: 'c3-chart-current-full'
+    }
+
+
     # Load event markers for selected IDs
     if scope.events.show
-      events = 
-        for own key, value of scope.events.items when matchIds(value[1])
-          { value: key, text: value[0] }
+      for own key, value of scope.events.items
+        if matchIds value[1]
+          events.push {
+            value: key,
+            text: value[0],
+          }
 
-      chart.xgrids events
-    else
-      chart.xgrids.remove()
+    chart.xgrids events
 
+  bindRectsToChangeYear = ->
+    $('.c3-event-rect', element).on 'click', ->
+      match = $(this).attr('class').match c3RectClassMatcher
+      if match != null
+        year = parseInt(match[1]) + scope.year.min
+        scope.$apply ->
+          scope.changeYear year
 
   loadChart = (unload=[]) ->
     chart.load {
@@ -76,6 +104,7 @@ initLine = (scope, element, attrs) ->
       chart.groups []
 
     showEvents()
+    bindRectsToChangeYear()
 
   draw = ->
     data = scope.data.selectedMajor
@@ -160,6 +189,7 @@ initLine = (scope, element, attrs) ->
     draw()
 
   watches.push scope.$watch 'events.show', showEvents
+  watches.push scope.$watch 'year.current', showEvents
 
   element.on '$destroy', ->
     # Clear watches

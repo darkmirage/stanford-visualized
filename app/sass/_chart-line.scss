@@ -14,6 +14,20 @@
   fill-opacity: 0;
 }
 
+.c3-chart-current line, .c3-chart-current-full line {
+  stroke-width: 2px;
+  stroke-fill: red !important;
+}
+
+.c3-chart-current-full {
+  visibility: hidden;
+}
+
+// Hacky hack
+.c3-chart-current {
+  transform: translate(0, 435px)
+}
+
 .c3-axis text {
   fill: #969696;
 }
@@ -41,6 +55,10 @@
 }
 
 .c3:hover {
+  .c3-chart-current-full {
+    visibility: visible;
+  }
+
   .c3-axis text {
     fill: #333;
   }

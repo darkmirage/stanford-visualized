@@ -33,7 +33,7 @@ appCtrl = ($scope, $location, hotkeys, pageMeta, windowResize, d3Config, d3Data,
 
 # Route: /
 homeCtrl = ($scope) ->
-  $scope.page.setTitle 'Home'
+  $scope.page.setTitle ''
 
 # Route: /contact
 contactCtrl = ($scope) ->
