@@ -1,13 +1,13 @@
 <div class="row toolbar">
   <div class="col-lg-2"></div>
-  <div class="col-lg-6 col-sm-8">
+  <div class="col-lg-5 col-sm-8">
     <div main-toolbar-column-toggles class="btn-toolbar"></div>
   </div>
 
-  <div class="col-lg-2 col-sm-4">
-    <div class="pull-right">
-      <span ng-class="{invisible:year.event.length === 0}" class="toolbar-event">{{ year.event }}</span>
-      <span class="toolbar-year">{{ year.current }}</span>
+  <div class="col-lg-3 col-sm-4">
+    <div class="pull-right toolbar-event">
+      <span class="toolbar-event-text">{{ year.event }}</span>
+      <span class="toolbar-event-year"> {{ year.current }}</span>
     </div>
   </div>
 </div>

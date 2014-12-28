@@ -39,9 +39,10 @@ initToolbar = (scope, element, attrs) ->
     containerWidth = toolbar.closest('.container-fluid').outerWidth()
     if isFixed
       originalTop = padding.offset().top
+      toolbar.width(containerWidth)
     else
       originalTop = toolbar.offset().top
-    toolbar.width(containerWidth)
+      toolbar.width('auto')
 
   scroller = ->
     if $(window).scrollTop() > originalTop
@@ -54,6 +55,7 @@ initToolbar = (scope, element, attrs) ->
       if isFixed
         toolbar.removeClass('fixed-toolbar')
         padding.height(0)
+        toolbar.width('auto')
         isFixed = false
 
   scope.windowResize.register resizer
