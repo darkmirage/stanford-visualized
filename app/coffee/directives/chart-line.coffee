@@ -41,6 +41,7 @@ initLine = (scope, element, attrs) ->
   }
 
   updateYears =->
+    return if scope.years.length is 0
     years = scope.years.slice 0
     years.unshift 'year'
 
@@ -57,8 +58,7 @@ initLine = (scope, element, attrs) ->
     column = scope.displayColumn.name
     ids = scope.filters.id
 
-    return if years is null or years.length is 1
-    return if data.length is 0
+    return if years is null
 
     yearStart = scope.year.min
     numYears = scope.years.length
@@ -105,10 +105,9 @@ initLine = (scope, element, attrs) ->
   # Rendering callbacks
   watches = []
 
-  watcher = scope.$watch 'years', ->
+  watches.push scope.$watch 'years', ->
     updateYears()
     draw()
-    watcher()
 
   watches.push scope.$watch 'data.selectedMajor', ->
     draw()
