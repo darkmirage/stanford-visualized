@@ -11,8 +11,22 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
   $scope.year = {
     current: 2000,
     min: 2000,
-    max: 2000
+    max: 2000,
+    event: ''
   }
+
+  $scope.changeYear = (year) ->
+    return if year < $scope.year.min or year > $scope.year.max
+    $scope.year.current = year
+
+    console.log year
+
+    item = $scope.events.items[year.toString()]
+    if item is undefined
+      $scope.year.event = ''
+    else
+      console.log item
+      $scope.year.event = item[0]
 
   $scope.displayColumn = {
     gender: 'all',
@@ -90,7 +104,7 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     $scope.years = d3Helper.uniqueValues($scope.fullData, 'year')
     $scope.year.max = d3.max $scope.years
     $scope.year.min = d3.min $scope.years
-    $scope.year.current = $scope.year.max
+    $scope.changeYear($scope.year.max)
 
     updateYearData()
     updateFullMajorData()
@@ -117,10 +131,6 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
   $scope.$on '$destroy', ->
     watcher() for watcher in watchers
     $scope.page.loading = true
-
-  $scope.changeYear = (year) ->
-    return if year < $scope.year.min or year > $scope.year.max
-    $scope.year.current = year
 
   increaseYear = -> $scope.changeYear($scope.year.current + 1)
   decreaseYear = -> $scope.changeYear($scope.year.current - 1)
