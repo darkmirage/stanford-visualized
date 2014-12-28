@@ -3,7 +3,8 @@
   <div class="col-lg-6 col-sm-8">
     <div class="btn-toolbar">
       <div class="btn-group">
-        <button type="button" ng-click="toggleHelp()" class="btn btn-default"><i class="fa fa-question"></i></button>
+        <a ng-click="toggleHelp()" class="btn btn-default"
+           title="Keyboard shortcuts" data-toggle="tooltip" data-placement="right" data-container="body"><i class="fa fa-question"></i></a>
       </div>
     </div>
   </div>
@@ -12,3 +13,6 @@
   </div>
 </div>
 
+<script>
+  $('.not-fixed-toolbar [data-toggle="tooltip"]').tooltip()
+</script>
