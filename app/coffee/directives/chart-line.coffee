@@ -53,10 +53,12 @@ initLine = (scope, element, attrs) ->
     chart.groups [currentIds] if isGrouped
 
   draw = ->
-    return if years is null
     data = scope.data.selectedMajor
     column = scope.displayColumn.name
     ids = scope.filters.id
+
+    return if years is null or years.length is 1
+    return if data.length is 0
 
     yearStart = scope.year.min
     numYears = scope.years.length
@@ -105,6 +107,7 @@ initLine = (scope, element, attrs) ->
 
   watcher = scope.$watch 'years', ->
     updateYears()
+    draw()
     watcher()
 
   watches.push scope.$watch 'data.selectedMajor', ->
