@@ -144,6 +144,14 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
       description: 'Go forward one year',
       callback: increaseYear
     }
+    .add {
+      combo: 'left',
+      callback: decreaseYear
+    }
+    .add {
+      combo: 'right',
+      callback: increaseYear
+    }
 
 angular.module 'stanfordViz'
   .controller 'VizCtrl', ['$scope', 'hotkeys', 'd3Config', 'd3Helper', 'd3Display', vizCtrl]
