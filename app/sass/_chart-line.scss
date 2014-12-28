@@ -1,7 +1,20 @@
 @media (min-width: $screen-lg) {
   .charts-body {
-    padding-top: 100px;
+    margin-top: 70px;
+    padding-top: 30px;
     padding-right: 30px;
+  }
+}
+
+.chart-line-toolbar {
+  visibility: hidden;
+}
+
+.charts-body {
+  &:hover {
+    .chart-line-toolbar {
+      visibility: visible;
+    }
   }
 }
 
