@@ -43,7 +43,7 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
   }
 
   $scope.filters = {
-    id: ['cs', 'psych', 'econ', 'history', 'humbio'],
+    id: ['cs', 'econ', 'history'],
     cat: [],
     school: []
   }

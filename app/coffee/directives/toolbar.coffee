@@ -31,22 +31,24 @@ initToolbar = (scope, element, attrs) ->
   originalTop = toolbar.offset().top
 
   # Set a fixed width so width is preserved even when position fixed
-  toolbar.width(toolbar.closest('.container-fluid').outerWidth())
+  containerWidth = toolbar.closest('.container-fluid').outerWidth()
 
   isFixed = false
 
   resizer = ->
-    toolbar.width(toolbar.closest('.container-fluid').outerWidth())
+    containerWidth = toolbar.closest('.container-fluid').outerWidth()
     if isFixed
       originalTop = padding.offset().top
     else
       originalTop = toolbar.offset().top
+    toolbar.width(containerWidth)
 
   scroller = ->
     if $(window).scrollTop() > originalTop
       if not isFixed
-        toolbar.addClass('fixed-toolbar')
+        toolbar.width(containerWidth)
         padding.height(toolbar.height())
+        toolbar.addClass('fixed-toolbar')
         isFixed = true
     else
       if isFixed
