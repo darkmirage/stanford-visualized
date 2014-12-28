@@ -67,16 +67,10 @@ pageLoaded = (scope, element, attrs) ->
     return false
 
   showEvents = ->
-    events = []
-    events.push {
+    events = [{
       value: scope.year.current,
       class: 'c3-chart-current'
-    }
-    events.push {
-      value: scope.year.current,
-      class: 'c3-chart-current-full'
-    }
-
+    }]
 
     # Load event markers for selected IDs
     if scope.events.show
