@@ -108,6 +108,7 @@ initSidebar = (scope, element, attrs) ->
     labels.transition()
       .attr 'fill', (d) -> scope.d3Display.getColor d
       .attr 'fill-opacity', 1.0
+      .attr 'x', barStart + textXOffset
       .duration duration
       .delay groupTransitionDuration
 
