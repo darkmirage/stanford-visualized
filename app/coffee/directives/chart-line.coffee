@@ -108,8 +108,8 @@ pageLoaded = (scope, element, attrs) ->
     else
       chart.groups []
 
-    showEvents()
     bindRectsToChangeYear()
+    showEvents()
 
   draw = ->
     data = scope.data.selectedMajor
