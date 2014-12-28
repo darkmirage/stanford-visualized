@@ -54,11 +54,11 @@ initLine = (scope, element, attrs) ->
 
   draw = ->
     return if years is null
-    data = scope.selectedMajorData
-    column = scope.displayColumn
-    ids = scope.idFilters
+    data = scope.data.selectedMajor
+    column = scope.displayColumn.name
+    ids = scope.filters.id
 
-    yearStart = scope.minYear
+    yearStart = scope.year.min
     numYears = scope.years.length
 
     # Figure out which IDs are gone and should be removed
@@ -107,10 +107,10 @@ initLine = (scope, element, attrs) ->
     updateYears()
     watcher()
 
-  watches.push scope.$watch 'selectedMajorData', ->
+  watches.push scope.$watch 'data.selectedMajor', ->
     draw()
 
-  watches.push scope.$watch 'displayColumn', ->
+  watches.push scope.$watch 'displayColumn.name', ->
     # Clear caches when changing columns
     cachedColumns = {}
     currentColumns = []

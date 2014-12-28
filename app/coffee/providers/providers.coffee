@@ -4,6 +4,7 @@ app = angular.module 'stanfordViz'
 app.factory 'pageMeta', ->
   title = ''
   return {
+    loading: true,
     title: -> title
     fullTitle: ->
       if title.length > 0

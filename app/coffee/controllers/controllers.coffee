@@ -1,15 +1,16 @@
 # This is the parent controller to all routes
-appCtrl = ($scope, $location, pageMeta, windowResize, d3Config, d3Data, d3Helper) ->
+appCtrl = ($scope, $location, hotkeys, pageMeta, windowResize, d3Config, d3Data, d3Helper) ->
   $scope.page = pageMeta
   $scope.windowResize = windowResize
   $scope.isActive = (route) ->
     route == $location.path()
 
-  $scope.loading = true
+  $scope.toggleHelp = ->
+    hotkeys.toggleCheatSheet()
+
   $scope.fullData = []
   d3Data.get(d3Config.path).then (data) ->
     $scope.fullData = data
-    $scope.loading = false
 
 # Route: /
 homeCtrl = ($scope) ->
@@ -24,8 +25,9 @@ faqCtrl = ($scope) ->
   $scope.page.setTitle 'FAQs'
 
 angular.module 'stanfordViz'
-  .controller 'AppCtrl', ['$scope', '$location', 'pageMeta', 'windowResize',
-                          'd3Config', 'd3Data', 'd3Helper', appCtrl]
+  .controller 'AppCtrl', ['$scope', '$location', 'hotkeys', 'pageMeta',
+                          'windowResize', 'd3Config', 'd3Data', 'd3Helper',
+                          appCtrl]
   .controller 'HomeCtrl', ['$scope', homeCtrl]
   .controller 'ContactCtrl', ['$scope', contactCtrl]
   .controller 'FaqCtrl', ['$scope', faqCtrl]

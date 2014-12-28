@@ -28,9 +28,9 @@ initSidebar = (scope, element, attrs) ->
     barY + textYOffset
 
   draw = (duration=400) ->
-    maxRange = scope.sidebarMaxRange
-    data = scope.sidebarData
-    column = scope.displayColumn
+    maxRange = scope.sidebar.maxRange
+    data = scope.sidebar.data
+    column = scope.displayColumn.name
 
     barStart = svgJ.width() + barSpacing - textWidth
 
@@ -142,9 +142,9 @@ initSidebar = (scope, element, attrs) ->
 
   # Rendering callbacks
   watches = []
-  watches.push scope.$watch 'sidebarMaxRange', -> draw()
-  watches.push scope.$watch 'sidebarData', -> draw()
-  watches.push scope.$watchCollection 'idFilters', -> draw(0)
+  watches.push scope.$watch 'sidebar.maxRange', -> draw()
+  watches.push scope.$watch 'sidebar.data', -> draw()
+  watches.push scope.$watchCollection 'filters.id', -> draw(0)
 
   resizer = -> draw(0)
   scope.windowResize.register resizer

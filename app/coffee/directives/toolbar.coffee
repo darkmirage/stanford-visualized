@@ -1,12 +1,24 @@
-angular.module 'stanfordViz'
-  .directive 'mainToolbar', ->
-    return {
-      link: initToolbar,
-      templateUrl: 'views/_main-toolbar.html'
-    }
+app = angular.module 'stanfordViz'
+
+app.directive 'toolbarFixed', ->
+  return {
+    link: initToolbar,
+    templateUrl: 'views/_toolbar-fixed.html'
+  }
+
+app.directive 'toolbarNotFixed', ->
+  return {
+    templateUrl: 'views/_toolbar-not-fixed.html'
+  }
+
+app.directive 'toolbarColumnToggles', ->
+  return {
+    link: initToggles,
+    templateUrl: 'views/_toolbar-column-toggles.html'
+  }
 
 invalidToolbar = ->
-  new Error('main-toolbar template should contain only one div')
+  new Error('_toolbar-fixed template should contain only one div')
 
 initToolbar = (scope, element, attrs) ->
   toolbar = $(element).children()
@@ -49,3 +61,23 @@ initToolbar = (scope, element, attrs) ->
   element.on '$destroy', ->
     scope.windowResize.remove resizer
     $(window).off 'scroll', scroller
+
+initToggles = (scope, element, attrs) ->
+  columnButtons = $('button[data-chart-toggle]', element)
+
+  updateButtonsState = ->
+    columnButtons.each ->
+      button = $(this)
+      if button.data('chart-toggle-value') is scope.displayColumn[button.data('chart-toggle')]
+        button.addClass('active')
+      else
+        button.removeClass('active')
+
+  updateButtonsState()
+
+  columnButtons.on 'click', ->
+    button = $(this)
+    return if button.hasClass('active')
+    scope.$apply ->
+      scope.displayColumn[button.data('chart-toggle')] = button.data('chart-toggle-value')
+    updateButtonsState()
