@@ -135,12 +135,12 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
 
   hotkeys.bindTo($scope)
     .add {
-      combo: 'left',
+      combo: 'q',
       description: 'Go back one year',
       callback: decreaseYear
     }
     .add {
-      combo: 'right',
+      combo: 'w',
       description: 'Go forward one year',
       callback: increaseYear
     }
