@@ -4,10 +4,35 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
   watchers = []
 
   $scope.d3Display = d3Display
+
+  # Misc helpers for directives
+  # ==========================================================================
+
   $scope.bindKey = (config) ->
     hotkeys.bindTo($scope).add(config)
 
-  $scope.years = []
+
+  # Data filters
+  # ==========================================================================
+  $scope.filters = {
+    id: d3Config.defaultMajors.slice 0
+    cat: [],
+    school: []
+  }
+
+  d3Display.initColor($scope.filters.id)
+
+  $scope.toggleId = (id) ->
+    d3Helper.toggleId($scope.filters.id, id)
+    d3Display.addColor(id)
+
+  $scope.clearIds = ->
+    $scope.filters.id.length = 0
+
+
+  # Current year
+  # ==========================================================================
+
   $scope.year = {
     current: 2000,
     min: 2000,
@@ -24,6 +49,42 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
       $scope.year.event = ''
     else
       $scope.year.event = item[0]
+
+  $scope.changeYear = (year) ->
+    return if year < $scope.year.min or year > $scope.year.max
+    $scope.year.current = year
+
+    item = $scope.events.items[year.toString()]
+    if item is undefined
+      $scope.year.event = ''
+    else
+      $scope.year.event = item[0]
+
+  $scope.increaseYear = -> $scope.changeYear($scope.year.current + 1)
+  $scope.decreaseYear = -> $scope.changeYear($scope.year.current - 1)
+
+  hotkeys.bindTo($scope)
+    .add {
+      combo: 'q',
+      description: 'Go back one year',
+      callback: $scope.decreaseYear
+    }
+    .add {
+      combo: 'w',
+      description: 'Go forward one year',
+      callback: $scope.increaseYear
+    }
+    .add {
+      combo: 'left',
+      callback: $scope.decreaseYear
+    }
+    .add {
+      combo: 'right',
+      callback: $scope.increaseYear
+    }
+
+  # Column selection
+  # ==========================================================================
 
   $scope.displayColumn = {
     gender: 'all',
@@ -46,112 +107,57 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     $scope.displayColumn.gender = gender
     updateColumnName()
 
-  $scope.data = {
-    fullMajor: [],
-    selectedMajor: [],
-    year: [],
-    total: []
-  }
+  # Data processing
+  # ==========================================================================
 
-  $scope.filters = {
-    id: ['cs', 'econ', 'history'],
-    cat: [],
-    school: []
-  }
+  d3Filter = d3Helper.filterByColumn
+  d3Sort = d3Helper.sortByColumn
 
   $scope.sidebar = {
     data: [],
     maxRange: 0
   }
 
-  d3Display.initColor($scope.filters.id)
-
-  d3Filter = d3Helper.filterByColumn
-  d3Sort = d3Helper.sortByColumn
-
-  $scope.toggleId = (id) ->
-    d3Helper.toggleId($scope.filters.id, id)
-    d3Display.addColor(id)
-
-  $scope.clearIds = ->
-    $scope.filters.id.length = 0
-
-  updateYearData = ->
-    $scope.data.year = d3Filter($scope.fullData, 'year', [$scope.year.current])
-
-  updateFullMajorData = ->
-    $scope.data.fullMajor = d3Filter($scope.fullData, 'cat', ['aggr', 'dept'], true)
-
-  updateSelectedMajorData = ->
-    $scope.data.selectedMajor = d3Filter($scope.data.fullMajor, 'id', $scope.filters.id)
-
-  updateTotalData = ->
-    $scope.data.total = d3Filter($scope.fullData, 'id', ['total'])
+  $scope.line = {
+    data: []
+  }
 
   updateSidebarRange = ->
-    $scope.sidebar.maxRange = d3.max $scope.data.fullMajor, (d) -> d[$scope.displayColumn.name]
+    $scope.sidebar.maxRange =
+      $scope.indices.columnToMaxRange[$scope.displayColumn.name]
 
   updateSidebarData = ->
-    data = d3Filter($scope.data.year, 'cat', ['aggr', 'dept'], true)
+    data = $scope.indices.yearToItems[$scope.year.current]
+    data = data.slice 0
     data = d3Filter(data, $scope.displayColumn.name, [0], true)
     d3Sort(data, $scope.displayColumn.name, true)
     $scope.sidebar.data = data
 
-  watchers.push $scope.$watch 'fullData', ->
-    return if $scope.fullData.length is 0
-    $scope.years = d3Helper.uniqueValues($scope.fullData, 'year')
-    $scope.year.max = d3.max $scope.years
-    $scope.year.min = d3.min $scope.years
-    $scope.changeYear($scope.year.max)
+  updateLineData = ->
+    data = ($scope.indices.majorToItems[id] for id in $scope.filters.id)
+    $scope.line.data = data
 
-    updateYearData()
-    updateFullMajorData()
-    updateTotalData()
+  watchers.push $scope.$watch 'data.updated', ->
+    $scope.year.max = d3.max $scope.data.years
+    $scope.year.min = d3.min $scope.data.years
+    updateLineData()
+    updateSidebarRange()
+    $scope.changeYear($scope.year.max)
     $scope.page.loading = false
 
-  watchers.push $scope.$watch 'data.fullMajor', ->
-    updateSidebarRange()
-    updateSelectedMajorData()
-
-  watchers.push $scope.$watch 'data.year', ->
-    updateSidebarData()
-
   watchers.push $scope.$watch 'year.current', ->
-    updateYearData()
+    updateSidebarData()
 
   watchers.push $scope.$watch 'displayColumn.name', ->
     updateSidebarRange()
     updateSidebarData()
 
   watchers.push $scope.$watchCollection 'filters.id', ->
-    updateSelectedMajorData()
+    updateLineData()
 
   $scope.$on '$destroy', ->
     watcher() for watcher in watchers
     $scope.page.loading = true
-
-  increaseYear = -> $scope.changeYear($scope.year.current + 1)
-  decreaseYear = -> $scope.changeYear($scope.year.current - 1)
-
-  hotkeys.bindTo($scope)
-    .add {
-      combo: 'q',
-      description: 'Go back one year',
-      callback: decreaseYear
-    }
-    .add {
-      combo: 'w',
-      description: 'Go forward one year',
-      callback: increaseYear
-    }
-    .add {
-      combo: 'left',
-      callback: decreaseYear
-    }
-    .add {
-      combo: 'right',
-      callback: increaseYear
-    }
 
 angular.module 'stanfordViz'
   .controller 'VizCtrl', ['$scope', 'hotkeys', 'd3Config', 'd3Helper', 'd3Display', vizCtrl]

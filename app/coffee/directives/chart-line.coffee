@@ -7,20 +7,12 @@ angular.module 'stanfordViz'
     }
 
 initLine = (scope, element, attrs) ->
-  watcher = scope.$watch 'data.selectedMajor', ->
-    pageLoaded scope, element, attrs
-    watcher()
-
-pageLoaded = (scope, element, attrs) ->
   cachedColumns = {}
   currentColumns = []
   currentIds = []
 
   c3RectClassMatcher = /(?:c3-event-rect-)([0-9]+)/
-
   scope.mode = 'lines'
-
-  years = null
 
   chart = c3.generate {
     bindto: '#c3-target',
@@ -55,11 +47,6 @@ pageLoaded = (scope, element, attrs) ->
     }
   }
 
-  updateYears =->
-    return if scope.years.length is 0
-    years = scope.years.slice 0
-    years.unshift 'year'
-
   matchIds = (ids) ->
     return false if ids is undefined
     for id in ids
@@ -67,12 +54,13 @@ pageLoaded = (scope, element, attrs) ->
     return false
 
   showEvents = ->
+    # Adds marker for current year
     events = [{
       value: scope.year.current,
       class: 'c3-chart-current'
     }]
 
-    # Load event markers for selected IDs
+    # Adds event markers for selected IDs
     if scope.events.show
       for own key, value of scope.events.items
         if matchIds value[1]
@@ -106,14 +94,12 @@ pageLoaded = (scope, element, attrs) ->
     showEvents()
 
   draw = ->
-    data = scope.data.selectedMajor
+    data = scope.line.data
     column = scope.displayColumn.name
     ids = scope.filters.id
 
-    return if years is null
-
     yearStart = scope.year.min
-    numYears = scope.years.length
+    numYears = scope.data.years.length
 
     # Figure out which IDs are gone and should be removed and which are new
     removeIds = (id for id in currentIds when id not in ids)
@@ -133,7 +119,9 @@ pageLoaded = (scope, element, attrs) ->
       cachedColumns[id] = (0 for [0..numYears]) for id in uncachedIds
 
       # Fill in cache columns using actual data
-      cachedColumns[d.id][d.year - yearStart + 1] = d[column] for d in data
+      for majorData in data
+        for d in majorData
+          cachedColumns[d.id][d.year - yearStart + 1] = d[column] 
 
       # Use the extra column for the column label
       cachedColumns[id][0] = id for id in uncachedIds
@@ -142,6 +130,8 @@ pageLoaded = (scope, element, attrs) ->
     columns = (cachedColumns[id] for id in ids)
 
     # Add x-axis data
+    years = scope.data.years.slice 0
+    years.unshift 'year'
     columns.push years
 
     currentColumns = columns
@@ -158,6 +148,7 @@ pageLoaded = (scope, element, attrs) ->
     chart.transform 'line'
     loadChart()
 
+  # Line chart specific hotkeys
   scope.bindKey {
     combo: 'b',
     description: 'Show stacked bar charts',
@@ -173,13 +164,7 @@ pageLoaded = (scope, element, attrs) ->
   # Rendering callbacks
   watches = []
 
-  watches.push scope.$watch 'years', ->
-    updateYears()
-    draw()
-
-  watches.push scope.$watch 'data.selectedMajor', ->
-    draw()
-
+  watches.push scope.$watch 'line.data', draw
   watches.push scope.$watch 'displayColumn.name', ->
     # Clear caches when changing columns
     cachedColumns = {}

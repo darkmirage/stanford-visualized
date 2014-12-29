@@ -26,7 +26,7 @@ app.factory 'windowResize', ->
       clearTimeout(this.resizeTO) 
     this.resizeTO = setTimeout(
       ()-> $(this).trigger('resizeEnd')
-      700)
+      300)
 
   $(window).bind 'resizeEnd', ->
     callback() for callback in callbacks

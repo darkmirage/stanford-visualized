@@ -29,9 +29,19 @@ angular.module 'stanfordViz', ['ngRoute', 'cfp.hotkeys']
         </div>
       </div>';
 
-  .constant 'd3Path', './csv/data.csv'
-
   .constant 'd3Config', {
     path: './csv/data.csv',
-    sidebarEntries: 30
+    sidebarEntries: 30,
+    defaultMajors: ['cs', 'econ', 'history'],
+    dataColumns: [
+      'undergrad_men',
+      'undergrad_women',
+      'undergrad',
+      'graduate_men',
+      'graduate_women',
+      'graduate',
+      'total_men',
+      'total_women',
+      'total'
+    ]
   }

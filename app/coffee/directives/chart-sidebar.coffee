@@ -7,11 +7,6 @@ angular.module 'stanfordViz'
     }
 
 initSidebar = (scope, element, attrs) ->
-  watcher = scope.$watch 'sidebar.data', ->
-    pageLoaded scope, element, attrs
-    watcher()
-
-pageLoaded = (scope, element, attrs) ->
   groupTransitionDuration = 300
   barHeight = 20
   barSpacing = 2
@@ -151,7 +146,7 @@ pageLoaded = (scope, element, attrs) ->
   watches = []
   watches.push scope.$watch 'sidebar.maxRange', -> draw()
   watches.push scope.$watch 'sidebar.data', -> draw()
-  watches.push scope.$watchCollection 'filters.id', -> draw(0)
+  watches.push scope.$watchCollection 'filters.id', -> draw(300)
 
   resizer = -> draw(0)
   scope.windowResize.register resizer
