@@ -19,6 +19,7 @@ dataLoaded = (scope, element, attrs) ->
   textYOffset = 15 # not sure what this should be based off
   textXOffset = 5
   textWidth = 100
+  countWidth = 30
   barSlot = barHeight + barSpacing * 2
 
   scale = d3.scale.linear()
@@ -38,14 +39,16 @@ dataLoaded = (scope, element, attrs) ->
     maxRange = scope.sidebar.maxRange
     data = scope.sidebar.data
     column = scope.displayColumn.name
+    showPercentages = scope.displayColumn.percentages()
 
     barStart = svgJ.width() + barSpacing - textWidth
 
     # Update height of svg according to number of elements present
     svgJ.height((data.length + 1) * barSlot)
 
+    console.log maxRange
     scale.domain [0, maxRange]
-    scale.range [0, svgJ.width() - textWidth - barSpacing * 2]
+    scale.range [0, svgJ.width() - textWidth - barSpacing * 2 - countWidth]
 
     groups = svg.selectAll('svg').data data, (d) -> d.id
 
@@ -122,19 +125,19 @@ dataLoaded = (scope, element, attrs) ->
 
     # Draw count labels
     groupsEnter.append 'text'
-      .text (d) -> d[column]
+      .text (d) -> scope.d3Display.formatCount d[column], showPercentages
       .attr 'class', 'bar-count'
       .attr 'text-anchor', 'end'
       .attr 'y', textYOffset
-      .attr 'x', (d) -> barStart - scale d[column] + textXOffset
+      .attr 'x', (d) -> barStart - scale(d[column]) - textXOffset
       .attr 'fill', (d) -> scope.d3Display.getColor d
       .attr 'fill-opacity', 0
 
     counts = groups.select '.bar-count'
 
     counts.transition()
-      .text (d) -> d[column]
-      .attr 'x', (d) -> barStart - scale d[column] + textXOffset
+      .text (d) -> scope.d3Display.formatCount d[column], showPercentages
+      .attr 'x', (d) -> barStart - scale(d[column]) - textXOffset
       .attr 'fill', (d) -> scope.d3Display.getColor d
       .attr 'fill-opacity', 1.0
       .duration duration

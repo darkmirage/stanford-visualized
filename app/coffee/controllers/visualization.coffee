@@ -90,15 +90,29 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   $scope.displayColumn = {
     gender: 'all',
     prefix: 'undergrad',
-    name: 'undergrad'
+    name: 'undergrad_percentage_of_declared',
+    showPercentages: true
+    percentages: ->
+      self = $scope.displayColumn
+      return false if self.gender == 'ratio'
+      self.showPercentages
   }
 
   updateColumnName = ->
     column = $scope.displayColumn
-    if column.gender is 'all'
-      column.name = column.prefix
-    else
-      column.name = "#{column.prefix}_#{column.gender}"
+    name = column.prefix
+    if column.gender != 'all'
+      name = name + '_' + column.gender
+
+    if column.showPercentages and column.gender != 'ratio'
+      name = name + '_percentage_of_declared'
+    column.name = name
+
+
+  $scope.togglePercentages = ->
+    $scope.displayColumn.showPercentages =
+      not $scope.displayColumn.showPercentages
+    updateColumnName()
 
   $scope.updatePrefix = (prefix) ->
     $scope.displayColumn.prefix = prefix

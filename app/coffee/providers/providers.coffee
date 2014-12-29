@@ -54,6 +54,13 @@ app.factory 'd3Display', ->
       color(id)
 
   return {
+    formatCount: (count, percentages=false, sign=false) ->
+      if percentages
+        count = count * 100
+        if sign then "#{count.toFixed(2)}%" else count.toFixed(2)
+      else
+        count
+
     addColor: (id) ->
       if id not in seen
         seen.push(id)
@@ -107,25 +114,19 @@ app.factory 'd3Helper', ->
   }
 
 # Data retrieval for d3
-app.service 'd3Data', ['$q', ($q) ->
+app.service 'd3Data', ['$q', 'd3Config', ($q, d3Config) ->
   defer = $q.defer()
 
   parseEnrollment = (d) ->
-    return {
+    result = {
       year: +d.year,
       id: d.id,
-      undergrad_men: +d.undergrad_men,
-      undergrad_women: +d.undergrad_women,
-      undergrad: +d.undergrad,
-      graduate_men: +d.graduate_men,
-      graduate_women: +d.graduate_women,
-      graduate: +d.graduate,
-      total_men: +d.total_men,
-      total_women: +d.total_women,
-      total: +d.total,
       cat: d.cat,
       school: d.school
     }
+    for column in d3Config.dataColumns
+      result[column] = +d[column]
+    return result
 
   return {
     get: (path) ->

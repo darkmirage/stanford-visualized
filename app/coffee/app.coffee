@@ -42,6 +42,18 @@ angular.module 'stanfordViz', ['ngRoute', 'cfp.hotkeys']
       'graduate',
       'total_men',
       'total_women',
-      'total'
+      'total',
+      'undergrad_ratio',
+      'graduate_ratio',
+      'total_ratio',
+      'undergrad_men_percentage_of_declared',
+      'undergrad_women_percentage_of_declared',
+      'undergrad_percentage_of_declared',
+      'graduate_men_percentage_of_declared',
+      'graduate_women_percentage_of_declared',
+      'graduate_percentage_of_declared',
+      'total_men_percentage_of_declared',
+      'total_women_percentage_of_declared',
+      'total_percentage_of_declared'
     ]
   }

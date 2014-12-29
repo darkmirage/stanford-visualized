@@ -44,6 +44,13 @@ dataLoaded = (scope, element, attrs) ->
         label: 'Students'
       }
     },
+    tooltip: {
+      format: {
+        value: (value, ratio, id, index) ->
+          show = scope.displayColumn.percentages()
+          scope.d3Display.formatCount value, show, true
+      }
+    },
     legend: {
       item: {
         onclick: (id) ->
