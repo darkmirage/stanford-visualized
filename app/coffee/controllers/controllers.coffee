@@ -8,7 +8,6 @@ appCtrl = ($scope, $location, hotkeys, pageMeta, windowResize) ->
   # Page loading screen
   # ==========================================================================
   $scope.page.loading = true
-
   $scope.$on '$routeChangeStart', ->
     $scope.page.loading = true
 
