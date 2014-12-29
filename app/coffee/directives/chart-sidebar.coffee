@@ -46,7 +46,6 @@ dataLoaded = (scope, element, attrs) ->
     # Update height of svg according to number of elements present
     svgJ.height((data.length + 1) * barSlot)
 
-    console.log maxRange
     scale.domain [0, maxRange]
     scale.range [0, svgJ.width() - textWidth - barSpacing * 2 - countWidth]
 
@@ -73,6 +72,10 @@ dataLoaded = (scope, element, attrs) ->
       .attr 'height', barSlot
       .attr 'fill', '#ffffff'
       .attr 'fill-opacity', 0
+      .attr 'title', (d) -> scope.keys[d.id].name
+      .attr 'data-toggle', 'tooltip'
+      .attr 'data-placement', 'right'
+      .attr 'data-container', 'body'
 
     backgrounds = groups.select '.bar-background'
 
@@ -142,6 +145,8 @@ dataLoaded = (scope, element, attrs) ->
       .attr 'fill-opacity', 1.0
       .duration duration
       .delay groupTransitionDuration
+
+    $('.bar-background', svgJ).tooltip()
 
     # User interaction callbacks
     groupsEnter.each ->

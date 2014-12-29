@@ -2,12 +2,19 @@
   .charts-body {
     margin-top: 70px;
     padding-top: 30px;
-    padding-right: 30px;
   }
 }
 
 .chart-line-toolbar {
   visibility: hidden;
+}
+
+.chart-line-description {
+  color: #999;
+  font-weight: 600;
+  font-size: 1.2em;
+  text-transform: lowercase;
+  margin-right: 42px;
 }
 
 .charts-body {

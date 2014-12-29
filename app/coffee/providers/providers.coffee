@@ -115,7 +115,7 @@ app.factory 'd3Helper', ->
 
 # Data retrieval for d3
 app.service 'd3Data', ['$q', 'd3Config', ($q, d3Config) ->
-  defer = $q.defer()
+  defer = null
 
   parseEnrollment = (d) ->
     result = {
@@ -124,14 +124,19 @@ app.service 'd3Data', ['$q', 'd3Config', ($q, d3Config) ->
       cat: d.cat,
       school: d.school
     }
-    for column in d3Config.dataColumns
+    for column of d3Config.dataColumns
       result[column] = +d[column]
     return result
 
-  return {
-    get: (path) ->
-      d3.csv path, parseEnrollment, (error, data) ->
-        defer.resolve(data)
+   {
+    get: ->
+      defer = $q.defer()
+      d3.csv d3Config.keyPath, null, (error, keys) ->
+        d3.csv d3Config.path, parseEnrollment, (error, data) ->
+          defer.resolve {
+            data: data
+            keys: keys
+          }
       defer.promise
   }
 ]

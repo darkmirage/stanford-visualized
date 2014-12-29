@@ -26,6 +26,9 @@ dataLoaded = (scope, element, attrs) ->
     transition: {
       duration: 500
     },
+    padding: {
+      right: 30
+    },
     data: {
       x: 'year',
       columns: [['year']],
@@ -93,6 +96,11 @@ dataLoaded = (scope, element, attrs) ->
           scope.changeYear year
 
   loadChart = (unload=[]) ->
+    names = {}
+    names[id] = scope.keys[id].name for id in currentIds
+
+    chart.data.names names
+
     chart.load {
       columns: currentColumns,
       unload: unload

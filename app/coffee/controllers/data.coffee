@@ -16,6 +16,9 @@ dataCtrl = ($scope, d3Config, d3Data, d3Helper) ->
     updated: 0 # FLag watched by child controller
   }
 
+  # Reference keys for major and category descriptions
+  $scope.keys = {}
+
   createIndices = (items) ->
     majorToItems = $scope.indices.majorToItems
     for d in items
@@ -30,7 +33,7 @@ dataCtrl = ($scope, d3Config, d3Data, d3Helper) ->
       yearToItems[d.year].push d
 
     columnToMaxRange = $scope.indices.columnToMaxRange
-    for column in d3Config.dataColumns
+    for column of d3Config.dataColumns
       columnToMaxRange[column] = d3.max items, (d) -> d[column]
 
   parseData = (data) ->
@@ -44,8 +47,13 @@ dataCtrl = ($scope, d3Config, d3Data, d3Helper) ->
     $scope.data.aggregates = aggregates
     $scope.data.items = items
 
-  d3Data.get(d3Config.path).then (data) ->
-    parseData(data)
+  saveKeys = (keys) ->
+    $scope.keys[key.id] = key for key in keys
+
+  d3Data.get(d3Config.path).then (result) ->
+    parseData(result.data)
+    saveKeys(result.keys)
+
     # Updates flag to signal to child controller to proceed
     $scope.data.updated += 1
 

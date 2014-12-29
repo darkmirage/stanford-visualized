@@ -30,30 +30,31 @@ angular.module 'stanfordViz', ['ngRoute', 'cfp.hotkeys']
       </div>';
 
   .constant 'd3Config', {
-    path: './csv/data.csv',
-    sidebarEntries: 30,
-    defaultMajors: ['cs', 'econ', 'history'],
-    dataColumns: [
-      'undergrad_men',
-      'undergrad_women',
-      'undergrad',
-      'graduate_men',
-      'graduate_women',
-      'graduate',
-      'total_men',
-      'total_women',
-      'total',
-      'undergrad_ratio',
-      'graduate_ratio',
-      'total_ratio',
-      'undergrad_men_percentage_of_declared',
-      'undergrad_women_percentage_of_declared',
-      'undergrad_percentage_of_declared',
-      'graduate_men_percentage_of_declared',
-      'graduate_women_percentage_of_declared',
-      'graduate_percentage_of_declared',
-      'total_men_percentage_of_declared',
-      'total_women_percentage_of_declared',
-      'total_percentage_of_declared'
-    ]
+    path: './csv/data.csv'
+    keyPath: './csv/keys.csv'
+    sidebarEntries: 30
+    defaultMajors: ['cs', 'econ', 'history']
+    dataColumns: {
+      'undergrad_men': 'Number of undergraduate men'
+      'undergrad_women': 'Number of undergraduate women'
+      'undergrad': 'Number of undergraduate students'
+      'graduate_men': 'Number of graduate men'
+      'graduate_women': 'Number of graduate women'
+      'graduate': 'Number of graduate students'
+      'total_men': 'Number of men overall'
+      'total_women': 'Number of women overall'
+      'total': 'Number of students overall'
+      'undergrad_ratio': 'Ratio of undergraduate men to women'
+      'graduate_ratio': 'Ratio of graduate men to women'
+      'total_ratio': 'Ratio of men to women overall'
+      'undergrad_men_percentage_of_declared': 'Percentage of all undergraduate men'
+      'undergrad_women_percentage_of_declared': 'Percentage of all undergraduate women'
+      'undergrad_percentage_of_declared': 'Percentage of all undergraduate students'
+      'graduate_men_percentage_of_declared': 'Percentage of all graduate men'
+      'graduate_women_percentage_of_declared': 'Percentage of all graduate women'
+      'graduate_percentage_of_declared': 'Percentage of all graduate students'
+      'total_men_percentage_of_declared': 'Percentage of all men overall'
+      'total_women_percentage_of_declared': 'Percentage of all women overall'
+      'total_percentage_of_declared': 'Percentage of all students overall'
+    }
   }

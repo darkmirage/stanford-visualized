@@ -34,6 +34,11 @@
   font-size: 10px;
 }
 
+// Allows click/mouseover to pass through to the rect below
+.bar-label, .bar, .bar-count {
+  pointer-events: none;
+}
+
 .bar-group {
   &:hover {
     cursor: pointer;

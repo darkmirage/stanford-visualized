@@ -90,8 +90,9 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   $scope.displayColumn = {
     gender: 'all',
     prefix: 'undergrad',
-    name: 'undergrad_percentage_of_declared',
-    showPercentages: true
+    name: 'undergrad',
+    description: 'Number of undergraduate students'
+    showPercentages: false
     percentages: ->
       self = $scope.displayColumn
       return false if self.gender == 'ratio'
@@ -106,6 +107,9 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
 
     if column.showPercentages and column.gender != 'ratio'
       name = name + '_percentage_of_declared'
+
+    description = d3Config.dataColumns[name]
+    column.description = description
     column.name = name
 
 
