@@ -7,6 +7,12 @@ angular.module 'stanfordViz'
     }
 
 initSidebar = (scope, element, attrs) ->
+  watchOnce = scope.$watch 'sidebar.loaded', (loaded) ->
+    return if loaded is false
+    watchOnce()
+    dataLoaded scope, element, attrs
+
+dataLoaded = (scope, element, attrs) ->
   groupTransitionDuration = 300
   barHeight = 20
   barSpacing = 2
@@ -144,10 +150,6 @@ initSidebar = (scope, element, attrs) ->
 
   # Rendering callbacks
   watches = []
-
-  watches.push scope.$watch 'sidebar.maxRange', (oldValue, newValue) ->
-    return if oldValue is newValue
-    draw()
 
   watches.push scope.$watch 'sidebar.data', (oldValue, newValue) ->
     return if oldValue is newValue

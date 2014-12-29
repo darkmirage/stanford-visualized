@@ -55,16 +55,6 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     else
       $scope.year.event = item[0]
 
-  $scope.changeYear = (year) ->
-    return if year < $scope.year.min or year > $scope.year.max
-    $scope.year.current = year
-
-    item = $scope.events.items[year.toString()]
-    if item is undefined
-      $scope.year.event = ''
-    else
-      $scope.year.event = item[0]
-
   $scope.increaseYear = -> $scope.changeYear($scope.year.current + 1)
   $scope.decreaseYear = -> $scope.changeYear($scope.year.current - 1)
 
@@ -119,19 +109,22 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
   d3Sort = d3Helper.sortByColumn
 
   $scope.sidebar = {
-    data: [],
+    data: []
     maxRange: 0
+    loaded: false
   }
 
   $scope.line = {
     data: []
+    loaded: false
   }
 
-  updateSidebarRange = ->
+  dataLoaded = false
+
+  updateSidebarData = ->
     $scope.sidebar.maxRange =
       $scope.indices.columnToMaxRange[$scope.displayColumn.name]
 
-  updateSidebarData = ->
     data = $scope.indices.yearToItems[$scope.year.current]
     data = data.slice 0
     data = d3Filter(data, $scope.displayColumn.name, [0], true)
@@ -142,22 +135,32 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     data = ($scope.indices.majorToItems[id] for id in $scope.filters.id)
     $scope.line.data = data
 
-  watchers.push $scope.$watch 'data.updated', ->
+  initCharts = ->
     $scope.year.max = d3.max $scope.data.years
     $scope.year.min = d3.min $scope.data.years
-    updateLineData()
-    updateSidebarRange()
     $scope.changeYear($scope.year.max)
 
-  watchers.push $scope.$watch 'year.current', ->
-    updateSidebarData()
-
-  watchers.push $scope.$watch 'displayColumn.name', ->
-    updateSidebarRange()
-    updateSidebarData()
-
-  watchers.push $scope.$watchCollection 'filters.id', ->
     updateLineData()
+    updateSidebarData()
+
+    $scope.sidebar.loaded = true
+    $scope.line.loaded = true
+
+    watchers.push $scope.$watchCollection 'filters.id', ->
+      updateLineData()
+
+    watchers.push $scope.$watch 'year.current', (newValue, oldValue) ->
+      return if newValue is oldValue
+      updateSidebarData()
+
+    watchers.push $scope.$watch 'displayColumn.name', (newValue, oldValue) ->
+      return if newValue is oldValue
+      updateSidebarData()
+
+  watchOnce = $scope.$watch 'data.updated', (newValue, oldValue) ->
+    return if newValue is 0
+    watchOnce()
+    initCharts()
 
   $scope.$on '$destroy', ->
     watcher() for watcher in watchers

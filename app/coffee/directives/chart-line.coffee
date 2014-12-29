@@ -7,6 +7,12 @@ angular.module 'stanfordViz'
     }
 
 initLine = (scope, element, attrs) ->
+  watchOnce = scope.$watch 'line.loaded', (loaded) ->
+    return if loaded is false
+    watchOnce()
+    dataLoaded scope, element, attrs
+
+dataLoaded = (scope, element, attrs) ->
   cachedColumns = {}
   currentColumns = []
   currentIds = []
