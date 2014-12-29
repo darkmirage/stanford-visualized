@@ -7,7 +7,7 @@ angular.module 'stanfordViz'
     }
 
 initSidebar = (scope, element, attrs) ->
-  watchOnce = scope.$watch 'sidebar.loaded', (loaded) ->
+  watchOnce = scope.$watch 'charts.dataLoaded', (loaded) ->
     return if loaded is false
     watchOnce()
     dataLoaded scope, element, attrs
@@ -41,7 +41,7 @@ dataLoaded = (scope, element, attrs) ->
 
     barStart = svgJ.width() + barSpacing - textWidth
 
-    # Update height of svg according to numbe of elements present
+    # Update height of svg according to number of elements present
     svgJ.height((data.length + 1) * barSlot)
 
     scale.domain [0, maxRange]

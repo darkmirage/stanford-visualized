@@ -47,12 +47,12 @@
 </div>
 </div>
 
+<div ng-class="{ invisible:page.loading }" class="container-fluid" ng-view></div>
+
 <div ng-class="{ hidden:!page.loading }" class="large-loading">
   <i class="fa fa-circle-o-notch fa-spin"></i>
   <p>loading</p>
 </div>
-
-<div ng-class="{ invisible:page.loading }" class="container-fluid" ng-view></div>
 
 </body>
 

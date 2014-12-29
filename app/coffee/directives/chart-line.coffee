@@ -7,7 +7,7 @@ angular.module 'stanfordViz'
     }
 
 initLine = (scope, element, attrs) ->
-  watchOnce = scope.$watch 'line.loaded', (loaded) ->
+  watchOnce = scope.$watch 'charts.dataLoaded', (loaded) ->
     return if loaded is false
     watchOnce()
     dataLoaded scope, element, attrs

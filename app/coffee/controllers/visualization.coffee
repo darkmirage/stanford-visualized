@@ -1,16 +1,24 @@
 # This controller provides visualization data to the rendering directives
-vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
+vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   $scope.page.setTitle ''
   watchers = []
 
   $scope.d3Display = d3Display
+  d3Filter = d3Helper.filterByColumn
+  d3Sort = d3Helper.sortByColumn
+
+  # Temporary hacky hack for displaying events
+  # ==========================================================================
+  $scope.events = events
+  $scope.events.show = true
+  $scope.toggleEvents = -> $scope.events.show = not $scope.events.show
 
   # Misc helpers for directives
   # ==========================================================================
   $scope.bindKey = (config) ->
     hotkeys.bindTo($scope).add(config)
 
-  # Page loading helpers
+  # Page loading indicator
   # ==========================================================================
   $scope.page.loaded = 0
   watchers.push $scope.$watch 'page.loaded', ->
@@ -33,7 +41,6 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
 
   $scope.clearIds = ->
     $scope.filters.id.length = 0
-
 
   # Current year
   # ==========================================================================
@@ -80,7 +87,6 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
 
   # Column selection
   # ==========================================================================
-
   $scope.displayColumn = {
     gender: 'all',
     prefix: 'undergrad',
@@ -102,25 +108,23 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     $scope.displayColumn.gender = gender
     updateColumnName()
 
-  # Data processing
+  # Chart states
   # ==========================================================================
-
-  d3Filter = d3Helper.filterByColumn
-  d3Sort = d3Helper.sortByColumn
-
   $scope.sidebar = {
     data: []
     maxRange: 0
-    loaded: false
   }
 
   $scope.line = {
     data: []
-    loaded: false
   }
 
-  dataLoaded = false
+  $scope.charts = {
+    dataLoaded: false
+  }
 
+  # Data processing
+  # ==========================================================================
   updateSidebarData = ->
     $scope.sidebar.maxRange =
       $scope.indices.columnToMaxRange[$scope.displayColumn.name]
@@ -143,8 +147,7 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     updateLineData()
     updateSidebarData()
 
-    $scope.sidebar.loaded = true
-    $scope.line.loaded = true
+    $scope.charts.dataLoaded = true
 
     watchers.push $scope.$watchCollection 'filters.id', ->
       updateLineData()
@@ -166,4 +169,5 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     watcher() for watcher in watchers
 
 angular.module 'stanfordViz'
-  .controller 'VizCtrl', ['$scope', 'hotkeys', 'd3Config', 'd3Helper', 'd3Display', vizCtrl]
+  .controller 'VizCtrl', ['$scope', 'hotkeys', 'events', 'd3Config',
+                          'd3Helper', 'd3Display', vizCtrl]
