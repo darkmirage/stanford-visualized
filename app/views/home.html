@@ -1,26 +1,16 @@
-<div>
-  <div ng-class="{ hidden:!page.loading }" class="large-loading">
-    <i class="fa fa-circle-o-notch fa-spin"></i>
-    <p>loading</p>
+<div toolbar-not-fixed></div>
+<div toolbar-fixed></div>
+
+<div class="row charts">
+  <div class="col-lg-1"></div>
+
+  <div class="col-lg-7 charts-body">
+    <div line-chart></div>
   </div>
 
-  <div ng-class="{ invisible:page.loading }">
-    <div toolbar-not-fixed></div>
-    <div toolbar-fixed></div>
-
-    <div class="row charts">
-      <div class="col-lg-1"></div>
-
-      <div class="col-lg-7 charts-body">
-        <div line-chart></div>
-      </div>
-
-      <div class="col-lg-3 col-lg-offset-0
-                  col-sm-8 col-sm-offset-2
-                  charts-sidebar">
-        <div sidebar-chart></div>
-      </div>
-    </div>
+  <div class="col-lg-3 col-lg-offset-0
+              col-sm-8 col-sm-offset-2
+              charts-sidebar">
+    <div sidebar-chart></div>
   </div>
-
 </div>

@@ -7,10 +7,15 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
 
   # Misc helpers for directives
   # ==========================================================================
-
   $scope.bindKey = (config) ->
     hotkeys.bindTo($scope).add(config)
 
+  # Page loading helpers
+  # ==========================================================================
+  $scope.page.loaded = 0
+  watchers.push $scope.$watch 'page.loaded', ->
+    if $scope.page.loaded >= 2
+      $scope.page.loading = false
 
   # Data filters
   # ==========================================================================
@@ -143,7 +148,6 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
     updateLineData()
     updateSidebarRange()
     $scope.changeYear($scope.year.max)
-    $scope.page.loading = false
 
   watchers.push $scope.$watch 'year.current', ->
     updateSidebarData()
@@ -157,7 +161,6 @@ vizCtrl = ($scope, hotkeys, d3Config, d3Helper, d3Display) ->
 
   $scope.$on '$destroy', ->
     watcher() for watcher in watchers
-    $scope.page.loading = true
 
 angular.module 'stanfordViz'
   .controller 'VizCtrl', ['$scope', 'hotkeys', 'd3Config', 'd3Helper', 'd3Display', vizCtrl]

@@ -5,25 +5,31 @@ appCtrl = ($scope, $location, hotkeys, pageMeta, windowResize, events) ->
   $scope.isActive = (route) -> route == $location.path()
   $scope.toggleHelp = -> hotkeys.toggleCheatSheet()
 
-  # Temporary hacky hack
+  # Temporary hacky hack for displaying events
+  # ==========================================================================
   $scope.events = events
+  $scope.events.show = true
   $scope.toggleEvents = -> $scope.events.show = not $scope.events.show
 
-# Route: /
-homeCtrl = ($scope) ->
-  $scope.page.setTitle ''
+  # Page loading screen
+  # ==========================================================================
+  $scope.page.loading = true
+
+  $scope.$on '$routeChangeStart', ->
+    $scope.page.loading = true
 
 # Route: /contact
 contactCtrl = ($scope) ->
   $scope.page.setTitle 'Contact'
+  $scope.page.loading = false
 
 # Route: /faq
 faqCtrl = ($scope) ->
   $scope.page.setTitle 'FAQs'
+  $scope.page.loading = false
 
 angular.module 'stanfordViz'
   .controller 'AppCtrl', ['$scope', '$location', 'hotkeys', 'pageMeta',
                           'windowResize', 'events', appCtrl]
-  .controller 'HomeCtrl', ['$scope', homeCtrl]
   .controller 'ContactCtrl', ['$scope', contactCtrl]
   .controller 'FaqCtrl', ['$scope', faqCtrl]

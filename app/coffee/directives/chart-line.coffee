@@ -164,16 +164,25 @@ initLine = (scope, element, attrs) ->
   # Rendering callbacks
   watches = []
 
-  watches.push scope.$watch 'line.data', draw
-  watches.push scope.$watch 'displayColumn.name', ->
+  watches.push scope.$watch 'line.data', ->
+    scope.page.loaded += 1
+    draw()
+
+  watches.push scope.$watch 'displayColumn.name', (newValue, oldValue) ->
+    return if newValue is oldValue
     # Clear caches when changing columns
     cachedColumns = {}
     currentColumns = []
     currentIds = []
     draw()
 
-  watches.push scope.$watch 'events.show', showEvents
-  watches.push scope.$watch 'year.current', showEvents
+  watches.push scope.$watch 'events.show', (newValue, oldValue) ->
+    return if newValue is oldValue
+    showEvents()
+
+  watches.push scope.$watch 'year.current', (newValue, oldValue) ->
+    return if newValue is oldValue
+    showEvents()
 
   element.on '$destroy', ->
     # Clear watches

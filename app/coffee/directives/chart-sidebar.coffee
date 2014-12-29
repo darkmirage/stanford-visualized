@@ -144,9 +144,18 @@ initSidebar = (scope, element, attrs) ->
 
   # Rendering callbacks
   watches = []
-  watches.push scope.$watch 'sidebar.maxRange', -> draw()
-  watches.push scope.$watch 'sidebar.data', -> draw()
-  watches.push scope.$watchCollection 'filters.id', -> draw(300)
+
+  watches.push scope.$watch 'sidebar.maxRange', (oldValue, newValue) ->
+    return if oldValue is newValue
+    draw()
+
+  watches.push scope.$watch 'sidebar.data', (oldValue, newValue) ->
+    return if oldValue is newValue
+    draw()
+
+  watches.push scope.$watchCollection 'filters.id', ->
+    draw(300)
+    scope.page.loaded += 1
 
   resizer = -> draw(0)
   scope.windowResize.register resizer
