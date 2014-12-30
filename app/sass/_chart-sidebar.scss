@@ -22,6 +22,10 @@
   visibility: hidden;
 }
 
+.bar-compare {
+  visibility: hidden;
+}
+
 .bar-count {
   font-weight: normal;
   text-transform: lowercase;
@@ -45,6 +49,10 @@
 
     .bar-background {
       fill: #eee;
+    }
+
+    .bar-compare {
+      visibility: visible;
     }
   }
 }
