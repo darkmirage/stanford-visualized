@@ -16,7 +16,7 @@ dataLoaded = (scope, element, attrs) ->
   groupTransitionDuration = 300
   barHeight = 20
   barSpacing = 2
-  textYOffset = 15 # not sure what this should be based off
+  textYOffset = 17 # not sure what this should be based off
   textXOffset = 5
   textWidth = 100
   countWidth = 30
@@ -40,6 +40,9 @@ dataLoaded = (scope, element, attrs) ->
   draw = (duration=400) ->
     data = scope.sidebar.data
     singleMode = scope.charts.singleMode
+
+    menColor = getColorById '_men'
+    womenColor = getColorById '_women'
 
     column = if singleMode
         scope.displayColumn.prefix
@@ -69,6 +72,11 @@ dataLoaded = (scope, element, attrs) ->
 
     groups.transition()
       .attr 'y', getBarY
+      .attr 'class', (d) ->
+        if singleMode and d.id is scope.filters.selected
+          'bar-group bar-group-selected'
+        else
+          'bar-group'
       .duration groupTransitionDuration
 
     groups.exit().remove()
@@ -104,7 +112,7 @@ dataLoaded = (scope, element, attrs) ->
       .attr 'height', barHeight
       .attr 'fill-opacity', 0
       .attr 'fill', (d) ->
-        if singleMode then getColorById '_men' else getColorById d.id
+        if singleMode then menColor else getColorById d.id
 
     bars = groups.select '.bar'
 
@@ -113,12 +121,12 @@ dataLoaded = (scope, element, attrs) ->
       .attr 'width', (d) -> scale d[column]
       .attr 'fill-opacity', (d) -> scope.d3Display.getOpacity d
       .attr 'fill', (d) ->
-        if singleMode then getColorById '_men' else getColorById d.id
+        if singleMode then menColor else getColorById d.id
       .duration duration
       .delay groupTransitionDuration
 
 
-    # Draw inner bars for comparison
+    # Draw inner bars for single mode
     groupsEnter.append 'rect'
       .attr 'class', 'bar-inner'
       .attr 'x', (d) -> barStart
@@ -127,7 +135,7 @@ dataLoaded = (scope, element, attrs) ->
       .attr 'height', barHeight
       .attr 'fill-opacity', 0
       .attr 'fill', (d) ->
-        if singleMode then getColorById '_women' else getColorById d.id
+        if singleMode then womenColor else getColorById d.id
 
     innerBars = groups.select '.bar-inner'
 
@@ -136,7 +144,7 @@ dataLoaded = (scope, element, attrs) ->
         .attr 'x', (d) -> barStart - scale d[columnInner]
         .attr 'width', (d) -> scale d[columnInner]
         .attr 'fill-opacity', (d) -> scope.d3Display.getOpacity d
-        .attr 'fill', (d) -> getColorById '_women'
+        .attr 'fill', (d) -> womenColor
         .duration duration
         .delay groupTransitionDuration
     else
@@ -172,7 +180,7 @@ dataLoaded = (scope, element, attrs) ->
       .text (d) -> scope.d3Display.formatCount d[column], showPercentages
       .attr 'class', 'bar-count'
       .attr 'text-anchor', 'end'
-      .attr 'y', textYOffset
+      .attr 'y', textYOffset - 2
       .attr 'x', (d) -> barStart - scale(d[column]) - textXOffset
       .attr 'fill', (d) -> getColorById d.id
       .attr 'fill-opacity', 0
@@ -186,6 +194,29 @@ dataLoaded = (scope, element, attrs) ->
       .attr 'fill-opacity', 1.0
       .duration duration
       .delay groupTransitionDuration
+
+
+    # Draw percentage labels for single mode
+    groupsEnter.append 'text'
+      .text (d) ->
+        frac = d[columnInner]/d[column]
+        "#{frac.toFixed(2)}".replace(/^0+/, '');
+      .attr 'class', 'bar-compare'
+      .attr 'y', textYOffset
+      .attr 'x', svgJ.width() - 24
+      .attr 'fill', womenColor
+      .attr 'fill-opacity', 0
+
+    compares = groups.select '.bar-compare'
+
+    compares.transition()
+      .attr 'fill', womenColor
+      .attr 'fill-opacity', ->
+        if singleMode then 1.0 else 0
+      .attr 'x', svgJ.width() - 24
+      .duration duration
+      .delay groupTransitionDuration
+
 
     $('.bar-background', svgJ).tooltip()
 

@@ -64,10 +64,10 @@ app.factory 'd3Display', ->
       color(id)
     
   return {
-    formatCount: (count, percentages=false, sign=false) ->
+    formatCount: (count, percentages=false, sign=false, prec=2) ->
       if percentages
         count = count * 100
-        if sign then "#{count.toFixed(2)}%" else count.toFixed(2)
+        if sign then "#{count.toFixed(prec)}%" else count.toFixed(prec)
       else
         count
 
