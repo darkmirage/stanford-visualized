@@ -131,15 +131,21 @@ dataLoaded = (scope, element, attrs) ->
 
     innerBars = groups.select '.bar-inner'
 
-    innerBars.transition()
-      .attr 'x', (d) -> barStart - scale d[columnInner]
-      .attr 'width', (d) -> scale d[columnInner]
-      .attr 'fill-opacity', (d) ->
-        if singleMode then scope.d3Display.getOpacity d else 0
-      .attr 'fill', (d) ->
-        if singleMode then getColorById '_women' else getColorById d.id
-      .duration duration
-      .delay groupTransitionDuration
+    if singleMode
+      innerBars.transition()
+        .attr 'x', (d) -> barStart - scale d[columnInner]
+        .attr 'width', (d) -> scale d[columnInner]
+        .attr 'fill-opacity', (d) -> scope.d3Display.getOpacity d
+        .attr 'fill', (d) -> getColorById '_women'
+        .duration duration
+        .delay groupTransitionDuration
+    else
+      innerBars.transition()
+        .attr 'x', barStart
+        .attr 'width', 0
+        .attr 'fill-opacity', 0
+        .duration duration
+        .delay groupTransitionDuration
 
 
     # Draw name labels
@@ -199,9 +205,12 @@ dataLoaded = (scope, element, attrs) ->
 
   scope.$watch 'charts.singleMode', (newValue, oldValue) ->
     return if newValue is oldValue
-    if newValue
-      column = scope.displayColumn.prefix
-      scope.d3Helper.sortByColumn(scope.sidebar.data, column, true)
+
+    column = if newValue
+      scope.displayColumn.prefix
+    else scope.displayColumn.name
+    scope.d3Helper.sortByColumn(scope.sidebar.data, column, true)
+
     draw()
 
   scope.$watch 'filters.selected', (newValue, oldValue) ->
