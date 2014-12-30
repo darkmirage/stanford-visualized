@@ -9,17 +9,23 @@
   visibility: hidden;
 }
 
+#c3-target text {
+  font-family: Metrophobic, sans-serif;
+  pointer-events: none;
+}
+
 .chart-line-description {
-  color: #999;
-  font-weight: 600;
-  font-size: 1.2em;
+  color: #333;
+  font-weight: 300;
+  font-size: 1.3em;
   text-transform: lowercase;
   margin-right: 42px;
+  visibility: hidden;
 }
 
 .charts-body {
   &:hover {
-    .chart-line-toolbar {
+    .chart-line-toolbar, .chart-line-description {
       visibility: visible;
     }
   }

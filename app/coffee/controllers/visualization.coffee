@@ -89,6 +89,7 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   # ==========================================================================
   $scope.displayColumn = {
     gender: 'all',
+    genderDisplay: 'Total',
     prefix: 'undergrad',
     name: 'undergrad',
     description: 'Number of undergraduate students'
@@ -102,6 +103,7 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   updateColumnName = ->
     column = $scope.displayColumn
     name = column.prefix
+
     if column.gender != 'all'
       name = name + '_' + column.gender
 
@@ -123,6 +125,15 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
     updateColumnName()
 
   $scope.updateGender = (gender) ->
+    name = null
+    switch gender
+      when 'men' then name = 'male'
+      when 'women' then name = 'female'
+      when 'all' then name = 'total'
+      when 'both' then name = 'both'
+      when 'ratio' then name = 'ratio'
+
+    $scope.displayColumn.genderDisplay = name
     $scope.displayColumn.gender = gender
     updateColumnName()
 
