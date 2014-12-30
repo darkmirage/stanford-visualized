@@ -4,6 +4,7 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   watchers = []
 
   $scope.d3Display = d3Display
+  $scope.d3Helper = d3Helper
   d3Filter = d3Helper.filterByColumn
   d3Sort = d3Helper.sortByColumn
 
@@ -24,15 +25,16 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   # ==========================================================================
   $scope.sidebar = {
     data: []
-    maxRange: 0
   }
 
   $scope.line = {
     data: []
+    show: true
   }
 
   $scope.single = {
-    data : []
+    data: []
+    show: false
   }
 
   $scope.charts = {
@@ -192,13 +194,14 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   # Data processing
   # ==========================================================================
   updateSidebarData = ->
-    $scope.sidebar.maxRange =
-      $scope.indices.columnToMaxRange[$scope.displayColumn.name]
-
     data = $scope.indices.yearToItems[$scope.year.current]
     data = data.slice 0
     data = d3Filter(data, $scope.displayColumn.name, [0], true)
-    d3Sort(data, $scope.displayColumn.name, true)
+
+    if $scope.charts.singleMode
+      d3Sort(data, $scope.displayColumn.prefix, true)
+    else
+      d3Sort(data, $scope.displayColumn.name, true)
     $scope.sidebar.data = data
 
   updateLineData = ->
@@ -254,6 +257,7 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
     watchers.push $scope.$watch 'displayColumn.name', (newValue, oldValue) ->
       return if newValue is oldValue
       updateSidebarData()
+      updateSingleData()
 
   watchOnce = $scope.$watch 'data.updated', (newValue, oldValue) ->
     return if newValue is 0

@@ -29,6 +29,8 @@ dataLoaded = (scope, element, attrs) ->
   svg = container.append('svg')
   svgJ = $('svg', element)
 
+  getColorById = scope.d3Display.getColorById
+
   getBarY = (d, i) -> barSpacing + i * barSlot
 
   getLabelY = (d, i) ->
@@ -36,10 +38,17 @@ dataLoaded = (scope, element, attrs) ->
     barY + textYOffset
 
   draw = (duration=400) ->
-    maxRange = scope.sidebar.maxRange
     data = scope.sidebar.data
-    column = scope.displayColumn.name
-    showPercentages = scope.displayColumn.percentages()
+    singleMode = scope.charts.singleMode
+
+    column = if singleMode
+        scope.displayColumn.prefix
+      else scope.displayColumn.name
+
+    columnInner = scope.displayColumn.prefix + '_women'
+
+    maxRange = scope.indices.columnToMaxRange[column]
+    showPercentages = scope.displayColumn.percentages() and not singleMode
 
     barStart = svgJ.width() + barSpacing - textWidth
 
@@ -93,16 +102,42 @@ dataLoaded = (scope, element, attrs) ->
       .attr 'y', barSpacing
       .attr 'width', 0
       .attr 'height', barHeight
-      .attr 'fill', (d) -> scope.d3Display.getColor d
       .attr 'fill-opacity', 0
+      .attr 'fill', (d) ->
+        if singleMode then getColorById '_men' else getColorById d.id
 
     bars = groups.select '.bar'
 
     bars.transition()
       .attr 'x', (d) -> barStart - scale d[column]
       .attr 'width', (d) -> scale d[column]
-      .attr 'fill', (d) -> scope.d3Display.getColor d
       .attr 'fill-opacity', (d) -> scope.d3Display.getOpacity d
+      .attr 'fill', (d) ->
+        if singleMode then getColorById '_men' else getColorById d.id
+      .duration duration
+      .delay groupTransitionDuration
+
+
+    # Draw inner bars for comparison
+    groupsEnter.append 'rect'
+      .attr 'class', 'bar-inner'
+      .attr 'x', (d) -> barStart
+      .attr 'y', barSpacing
+      .attr 'width', 0
+      .attr 'height', barHeight
+      .attr 'fill-opacity', 0
+      .attr 'fill', (d) ->
+        if singleMode then getColorById '_women' else getColorById d.id
+
+    innerBars = groups.select '.bar-inner'
+
+    innerBars.transition()
+      .attr 'x', (d) -> barStart - scale d[columnInner]
+      .attr 'width', (d) -> scale d[columnInner]
+      .attr 'fill-opacity', (d) ->
+        if singleMode then scope.d3Display.getOpacity d else 0
+      .attr 'fill', (d) ->
+        if singleMode then getColorById '_women' else getColorById d.id
       .duration duration
       .delay groupTransitionDuration
 
@@ -113,13 +148,13 @@ dataLoaded = (scope, element, attrs) ->
       .attr 'class', 'bar-label'
       .attr 'y', textYOffset
       .attr 'x', barStart + textXOffset
-      .attr 'fill', (d) -> scope.d3Display.getColor d
+      .attr 'fill', (d) -> getColorById d.id
       .attr 'fill-opacity', 0
 
     labels = groups.select '.bar-label'
 
     labels.transition()
-      .attr 'fill', (d) -> scope.d3Display.getColor d
+      .attr 'fill', (d) -> getColorById d.id
       .attr 'fill-opacity', 1.0
       .attr 'x', barStart + textXOffset
       .duration duration
@@ -133,7 +168,7 @@ dataLoaded = (scope, element, attrs) ->
       .attr 'text-anchor', 'end'
       .attr 'y', textYOffset
       .attr 'x', (d) -> barStart - scale(d[column]) - textXOffset
-      .attr 'fill', (d) -> scope.d3Display.getColor d
+      .attr 'fill', (d) -> getColorById d.id
       .attr 'fill-opacity', 0
 
     counts = groups.select '.bar-count'
@@ -141,7 +176,7 @@ dataLoaded = (scope, element, attrs) ->
     counts.transition()
       .text (d) -> scope.d3Display.formatCount d[column], showPercentages
       .attr 'x', (d) -> barStart - scale(d[column]) - textXOffset
-      .attr 'fill', (d) -> scope.d3Display.getColor d
+      .attr 'fill', (d) -> getColorById d.id
       .attr 'fill-opacity', 1.0
       .duration duration
       .delay groupTransitionDuration
@@ -165,6 +200,9 @@ dataLoaded = (scope, element, attrs) ->
 
   watches.push scope.$watch 'charts.singleMode', (newValue, oldValue) ->
     return if newValue is oldValue
+    if newValue
+      column = scope.displayColumn.prefix
+      scope.d3Helper.sortByColumn(scope.sidebar.data, column, true)
     draw()
 
   watches.push scope.$watch 'filters.selected', (newValue, oldValue) ->

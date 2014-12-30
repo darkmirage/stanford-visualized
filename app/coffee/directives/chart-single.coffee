@@ -15,6 +15,8 @@ initSingle = (scope, element, attrs) ->
 dataLoaded = (scope, element, attrs) ->
   c3RectClassMatcher = /(?:c3-event-rect-)([0-9]+)/
 
+  element.hide()
+
   scope.description = ''
   scope.majorName = ''
 
@@ -114,6 +116,10 @@ dataLoaded = (scope, element, attrs) ->
 
   watches.push scope.$watch 'charts.singleMode', (newValue, oldValue) ->
     return if newValue is oldValue
+    if newValue
+      element.hide().fadeIn(1000)
+    else
+      element.hide()
     draw()
 
   watches.push scope.$watch 'charts.displayMode', (newValue, oldValue) ->

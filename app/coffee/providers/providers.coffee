@@ -51,11 +51,11 @@ app.factory 'd3Display', ->
   getColorById = (id) ->
     if charts.singleMode
       if id is filters.selected
-        color(id)
+        d3.rgb(150, 150, 150)
       else
         switch id
-          when '_men' then '#aec7e8'
-          when '_women' then '#ff9896'
+          when '_men' then '#9467bd'
+          when '_women' then '#ff7f0e'
           else d3.rgb(150, 150, 150)
 
     else if id not in filters.id

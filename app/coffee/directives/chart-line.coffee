@@ -185,6 +185,10 @@ dataLoaded = (scope, element, attrs) ->
 
   watches.push scope.$watch 'charts.singleMode', (newValue, oldValue) ->
     return if newValue is oldValue
+    if newValue
+      element.hide()
+    else
+      element.hide().fadeIn(1000)
     cachedColumns = {}
     currentColumns = []
     currentIds = []
