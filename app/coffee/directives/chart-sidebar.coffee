@@ -163,6 +163,14 @@ dataLoaded = (scope, element, attrs) ->
     return if oldValue is newValue
     draw()
 
+  watches.push scope.$watch 'charts.singleMode', (newValue, oldValue) ->
+    return if newValue is oldValue
+    draw()
+
+  watches.push scope.$watch 'filters.selected', (newValue, oldValue) ->
+    return if newValue is oldValue
+    draw()
+
   watches.push scope.$watchCollection 'filters.id', ->
     draw(300)
     scope.page.loaded += 1

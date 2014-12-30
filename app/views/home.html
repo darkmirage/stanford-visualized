@@ -5,7 +5,8 @@
   <div class="col-lg-1"></div>
 
   <div class="col-lg-7 charts-body">
-    <div line-chart></div>
+    <div line-chart ng-show="!charts.singleMode"></div>
+    <div single-chart ng-show="charts.singleMode"></div>
   </div>
 
   <div class="col-lg-3 col-lg-offset-0

@@ -43,16 +43,26 @@ app.factory 'windowResize', ->
 
 # Display helpers for d3
 app.factory 'd3Display', ->
-  highlight = []
   seen = []
   color = d3.scale.category20()
+  filters = {}
+  charts = {}
 
   getColorById = (id) ->
-    if id not in highlight
+    if charts.singleMode
+      if id is filters.selected
+        color(id)
+      else
+        switch id
+          when '_men' then '#aec7e8'
+          when '_women' then '#ff9896'
+          else d3.rgb(150, 150, 150)
+
+    else if id not in filters.id
       d3.rgb(150, 150, 150)
     else
       color(id)
-
+    
   return {
     formatCount: (count, percentages=false, sign=false) ->
       if percentages
@@ -66,9 +76,10 @@ app.factory 'd3Display', ->
         seen.push(id)
         color.domain(seen)
 
-    initColor: (ids) ->
-      highlight = ids
-      seen = ids.slice 0
+    initColor: (f, c) ->
+      filters = f
+      charts = c
+      seen = f.id.slice 0
       color.domain(seen)
 
     getColor: (d) ->
@@ -77,10 +88,16 @@ app.factory 'd3Display', ->
     getColorById: getColorById
 
     getOpacity: (d) ->
-      if d.id not in highlight
-        0.3
+      if charts.singleMode
+        if d.id is filters.selected
+          1.0
+        else
+          0.3
       else
-        1.0
+        if d.id not in filters.id
+          0.3
+        else
+          1.0
   }
 
 # Data manipulation helpers for d3
@@ -104,13 +121,6 @@ app.factory 'd3Helper', ->
       map = {}
       map[d[column]] = d[column] for d in data
       (value for key, value of map).sort (a, b) -> a - b
-
-    toggleId: (ids, id) ->
-      index = ids.indexOf(id)
-      if index == -1
-        ids.push(id)
-      else
-        ids.splice(index, 1)
   }
 
 # Data retrieval for d3

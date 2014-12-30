@@ -1,13 +1,4 @@
- <div class="toolbar-column-toggles btn-toolbar">
-
-<div class="btn-group">
-  <a class="btn btn-lg btn-default"
-     ng-class="{active:displayColumn.showPercentages}"
-     ng-click="togglePercentages()"
-     title="Display as percentage of declared students"
-     data-toggle="tooltip" data-placement="right"
-     data-container="body"><i class="fa">%</i></a>
-</div>
+<div class="toolbar-column-toggles btn-toolbar">
 
  <div class="btn-group">
 
@@ -30,20 +21,32 @@
 
   <div class="btn-group dropdown">
     <button type="button" class="toolbar-wide-button btn btn-lg btn-default dropdown-toggle" data-toggle="dropdown">
-      {{ displayColumn.genderDisplay }}
+      {{ charts.singleMode ? 'Compare' : displayColumn.genderDisplay }}
     </button>
     <ul class="dropdown-menu">
-      <li ng-class="{disabled:displayColumn.gender === 'men'}">
+      <li ng-class="{disabled:!charts.singleMode && displayColumn.gender === 'men'}">
         <a ng-click="updateGender('men')">Male</a>
       </li>
-      <li ng-class="{disabled:displayColumn.gender === 'women'}">
+      <li ng-class="{disabled:!charts.singleMode && displayColumn.gender === 'women'}">
         <a ng-click="updateGender('women')">Female</a>
       </li>
-      <li ng-class="{disabled:displayColumn.gender === 'all'}">
+      <li ng-class="{disabled:!charts.singleMode && displayColumn.gender === 'all'}">
         <a ng-click="updateGender('all')">Total</a>
+      </li>
+      <li ng-class="{disabled:charts.singleMode}">
+        <a ng-click="toggleSingleOn()">Compare</a>
       </li>
     </ul>
   </div>
+</div>
+
+<div class="btn-group" ng-class="{invisible:charts.singleMode}" class="animate-show">
+  <a class="btn btn-lg btn-default"
+     ng-class="{active:displayColumn.showPercentages}"
+     ng-click="togglePercentages()"
+     title="Display as percentage of declared students"
+     data-toggle="tooltip" data-placement="right"
+     data-container="body"><i class="fa">%</i></a>
 </div>
 
 </div>

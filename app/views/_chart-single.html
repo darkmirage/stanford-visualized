@@ -1,7 +1,7 @@
 <div class="row">
-<div class="col-sm-6">
+<div class="col-sm-5">
 
-<div class="btn-toolbar chart-line-toolbar">
+<div class="btn-toolbar chart-single-toolbar">
 <div class="btn-group">
   <a ng-class="{active:charts.displayMode == 'bars'}" ng-click="setBars()" class="btn btn-default"
      title="Stacked bar chart" data-toggle="tooltip" data-placement="top" data-container="body">
@@ -13,26 +13,21 @@
   </a>
 </div>
 
-<div class="btn-group">
-  <a ng-class="{active:events.show}" ng-click="toggleEvents()" class="btn btn-default"
-     title="Show events related to the selected majors" data-toggle="tooltip" data-placement="right" data-container="body">
-    <i class="fa fa-calendar-o"></i>
-  </a>
-</div>
 </div>
 
 </div>
 
-<div class="col-sm-6">
-  <div class="text-right chart-line-description">
-    {{ displayColumn.description }}
+<div class="col-sm-7">
+  <div class="text-right chart-single-description">
+    number of {{ description }} men and women in<br>
+    {{ majorName }}
   </div>
 </div>
 
 </div>
 
-<div id="c3-target-line"></div>
+<div id="c3-target-single"></div>
 
 <script>
-  $('.chart-line-toolbar [data-toggle="tooltip"]').tooltip()
+  $('.chart-single-toolbar [data-toggle="tooltip"]').tooltip()
 </script>

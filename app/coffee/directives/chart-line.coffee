@@ -21,7 +21,7 @@ dataLoaded = (scope, element, attrs) ->
   scope.mode = 'lines'
 
   chart = c3.generate {
-    bindto: '#c3-target',
+    bindto: '#c3-target-line',
     size: { height: 500 },
     transition: {
       duration: 500
@@ -106,7 +106,7 @@ dataLoaded = (scope, element, attrs) ->
       unload: unload
     }
 
-    if scope.mode is 'bars'
+    if scope.charts.displayMode is 'bars'
       chart.groups [currentIds]
     else
       chart.groups []
@@ -115,6 +115,7 @@ dataLoaded = (scope, element, attrs) ->
     showEvents()
 
   draw = ->
+    return if scope.charts.singleMode
     data = scope.line.data
     column = scope.displayColumn.name
     ids = scope.filters.id
@@ -159,29 +160,6 @@ dataLoaded = (scope, element, attrs) ->
 
     loadChart removeIds
 
-  scope.setBars = ->
-    scope.mode = 'bars'
-    loadChart()
-    chart.transform 'bar'
-
-  scope.setLines = ->
-    scope.mode = 'lines'
-    chart.transform 'line'
-    loadChart()
-
-  # Line chart specific hotkeys
-  scope.bindKey {
-    combo: 'b',
-    description: 'Show stacked bar charts',
-    callback: -> scope.setBars()
-  }
-  
-  scope.bindKey {
-    combo: 'l',
-    description: 'Show line charts',
-    callback: -> scope.setLines()
-  }
-
   # Rendering callbacks
   watches = []
 
@@ -204,6 +182,22 @@ dataLoaded = (scope, element, attrs) ->
   watches.push scope.$watch 'year.current', (newValue, oldValue) ->
     return if newValue is oldValue
     showEvents()
+
+  watches.push scope.$watch 'charts.singleMode', (newValue, oldValue) ->
+    return if newValue is oldValue
+    cachedColumns = {}
+    currentColumns = []
+    currentIds = []
+    draw()
+
+  watches.push scope.$watch 'charts.displayMode', (newValue, oldValue) ->
+    return if newValue is oldValue
+    if scope.charts.displayMode == 'bars'
+      chart.transform 'bar'
+      loadChart()
+    else if scope.charts.displayMode == 'lines'
+      chart.transform 'line'
+      loadChart()
 
   element.on '$destroy', ->
     # Clear watches
