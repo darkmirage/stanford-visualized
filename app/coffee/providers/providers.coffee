@@ -26,7 +26,7 @@ app.factory 'windowResize', ->
       clearTimeout(this.resizeTO) 
     this.resizeTO = setTimeout(
       ()-> $(this).trigger('resizeEnd')
-      300)
+      600)
 
   $(window).bind 'resizeEnd', ->
     callback() for callback in callbacks
@@ -103,7 +103,6 @@ app.factory 'd3Display', ->
 # Data manipulation helpers for d3
 app.factory 'd3Helper', ->
   strcmp = (a, b) ->
-    console.log "#{a} cmp #{b}"
     return 1 if a > b
     return -1 if a < b
     return 0
