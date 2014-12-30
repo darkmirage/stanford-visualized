@@ -191,25 +191,24 @@ dataLoaded = (scope, element, attrs) ->
           scope.toggleId group.data('id')
 
 
-  # Rendering callbacks
-  watches = []
+  # Watches for rendering updates
 
-  watches.push scope.$watch 'sidebar.data', (oldValue, newValue) ->
+  scope.$watch 'sidebar.data', (oldValue, newValue) ->
     return if oldValue is newValue
     draw()
 
-  watches.push scope.$watch 'charts.singleMode', (newValue, oldValue) ->
+  scope.$watch 'charts.singleMode', (newValue, oldValue) ->
     return if newValue is oldValue
     if newValue
       column = scope.displayColumn.prefix
       scope.d3Helper.sortByColumn(scope.sidebar.data, column, true)
     draw()
 
-  watches.push scope.$watch 'filters.selected', (newValue, oldValue) ->
+  scope.$watch 'filters.selected', (newValue, oldValue) ->
     return if newValue is oldValue
     draw()
 
-  watches.push scope.$watchCollection 'filters.id', ->
+  scope.$watchCollection 'filters.id', ->
     draw(300)
     scope.page.loaded += 1
 
@@ -218,6 +217,3 @@ dataLoaded = (scope, element, attrs) ->
 
   element.on '$destroy', ->
     scope.windowResize.remove resizer
-
-    # Clear watches
-    watch() for watch in watches

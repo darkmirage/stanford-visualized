@@ -1,7 +1,6 @@
 # This controller provides visualization data to the rendering directives
 vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   $scope.page.setTitle ''
-  watchers = []
 
   $scope.d3Display = d3Display
   $scope.d3Helper = d3Helper
@@ -17,7 +16,7 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   # Page loading indicator
   # ==========================================================================
   $scope.page.loaded = 0
-  watchers.push $scope.$watch 'page.loaded', ->
+  $scope.$watch 'page.loaded', ->
     if $scope.page.loaded >= 2
       $scope.page.loading = false
 
@@ -244,17 +243,17 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
 
     $scope.charts.dataLoaded = true
 
-    watchers.push $scope.$watchCollection 'filters.id', ->
+    $scope.$watchCollection 'filters.id', ->
       updateLineData()
 
-    watchers.push $scope.$watchCollection 'filters.selected', ->
+    $scope.$watchCollection 'filters.selected', ->
       updateSingleData()
 
-    watchers.push $scope.$watch 'year.current', (newValue, oldValue) ->
+    $scope.$watch 'year.current', (newValue, oldValue) ->
       return if newValue is oldValue
       updateSidebarData()
 
-    watchers.push $scope.$watch 'displayColumn.name', (newValue, oldValue) ->
+    $scope.$watch 'displayColumn.name', (newValue, oldValue) ->
       return if newValue is oldValue
       updateSidebarData()
       updateSingleData()
@@ -263,9 +262,6 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
     return if newValue is 0
     watchOnce()
     initCharts()
-
-  $scope.$on '$destroy', ->
-    watcher() for watcher in watchers
 
 angular.module 'stanfordViz'
   .controller 'VizCtrl', ['$scope', 'hotkeys', 'events', 'd3Config',
