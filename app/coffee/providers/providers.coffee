@@ -102,16 +102,25 @@ app.factory 'd3Display', ->
 
 # Data manipulation helpers for d3
 app.factory 'd3Helper', ->
+  strcmp = (a, b) ->
+    console.log "#{a} cmp #{b}"
+    return 1 if a > b
+    return -1 if a < b
+    return 0
+
   return {
     filterByColumn: (data, column, values, exclude=false) ->
       # filters creates a copy
       data.filter (d) ->
         (d[column] in values and not exclude) or (d[column] not in values and exclude)
 
+    # Sorting is stable based on item ID
     sortByColumn: (data, column, descending=false) ->
       # sort does not create a copy
       data.sort (a, b) ->
-        if descending
+        if a[column] is b[column]
+          strcmp(a.id, b.id)
+        else if descending
           b[column] - a[column]
         else
           a[column] - b[column]
