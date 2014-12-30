@@ -44,7 +44,9 @@ dataLoaded = (scope, element, attrs) ->
         tick: { values: (1963 + i * 10 for i in [0..5]) }
       },
       y: {
-        label: 'Students'
+        label: 'Students',
+        min: 0,
+        padding: { bottom: 0 }
       }
     }
   }
