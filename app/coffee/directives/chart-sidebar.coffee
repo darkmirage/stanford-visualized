@@ -214,6 +214,7 @@ dataLoaded = (scope, element, attrs) ->
       .attr 'fill-opacity', ->
         if singleMode then 1.0 else 0
       .attr 'x', svgJ.width() - 24
+
       .duration duration
       .delay groupTransitionDuration
 
