@@ -1,9 +1,3 @@
-.toolbar {
-  .btn-toolbar {
-    margin-top: 5px;
-  }
-}
-
 .fixed-toolbar {
   @include top-layer();
   position: fixed;
