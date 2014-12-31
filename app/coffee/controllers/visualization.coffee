@@ -108,12 +108,12 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   c3RectClassMatcher = /(?:c3-event-rect-)([0-9]+)/
   $scope.rectClickToChangeYearHandler = (e) ->
     target = $(e.target)
-    match = target.attr('class').match c3RectClassMatcher
-    if match != null
-      year = parseInt(match[1]) + $scope.year.min
-      console.log year
-      $scope.$apply ->
-        $scope.changeYear year
+    if target and target.attr('class')
+      match = target.attr('class').match c3RectClassMatcher
+      if match != null
+        year = parseInt(match[1]) + $scope.year.min
+        $scope.$apply ->
+          $scope.changeYear year
 
   # Hotkeys
   # ==========================================================================
