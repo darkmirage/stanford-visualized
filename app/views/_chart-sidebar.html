@@ -1,8 +1,19 @@
-<div class="chart-sidebar-toolbar">
+<div class="chart-sidebar-toolbar row">
 <div class="pull-right">
+
+  <a ng-click="decreaseYear()" ng-class="{invisible:year.current === year.min}"
+       class="btn btn-link">
+      <i class="fa fa-caret-left"></i>
+  </a>
+
+  <a ng-click="increaseYear()" ng-class="{invisible:year.current === year.max}"
+       class="btn btn-link">
+      <i class="fa fa-caret-right"></i>
+  </a>
+
   <a ng-click="clearIds()" ng-class="{invisible:charts.singleMode || filters.id.length === 0}"
      title="Clear selected majors" data-toggle="tooltip"
-     data-placement="left" data-container="body"
+     data-placement="top" data-container="body"
      class="btn btn-link">
     <i class="fa fa-times"></i>
   </a>
