@@ -210,6 +210,9 @@ dataLoaded = (scope, element, attrs) ->
     compares = groups.select '.bar-compare'
 
     compares.transition()
+      .text (d) ->
+        frac = d[columnInner]/d[column]
+        "#{frac.toFixed(2)}".replace(/^0+/, '');
       .attr 'fill', womenColor
       .attr 'fill-opacity', ->
         if singleMode then 1.0 else 0
