@@ -9,6 +9,7 @@
 
 .not-fixed-toolbar {
   margin-bottom: 5px;
+  opacity: 0;
 }
 
 .toolbar-event-year {
@@ -57,4 +58,10 @@
 
 .fixed-toolbar-desktop, .fixed-toolbar-mobile {
   padding-top: 5px;
+}
+
+.top-toolbars:hover {
+  .not-fixed-toolbar {
+    opacity: 1.0;
+  }
 }
