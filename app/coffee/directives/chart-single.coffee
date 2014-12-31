@@ -22,7 +22,6 @@ dataLoaded = (scope, element, attrs) ->
 
   chart = c3.generate {
     bindto: '#c3-target-single',
-    size: { height: 500 },
     transition: {
       duration: 500
     },

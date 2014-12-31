@@ -1,11 +1,3 @@
-@media (min-width: $screen-lg) {
-  .charts-body {
-    margin-top: 70px;
-    padding-top: 30px;
-    padding-right: 9px;
-  }
-}
-
 .charts-body {
   &:hover {
     .chart-line-toolbar, .chart-single-toolbar {

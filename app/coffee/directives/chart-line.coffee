@@ -18,11 +18,10 @@ dataLoaded = (scope, element, attrs) ->
   currentIds = []
 
   c3RectClassMatcher = /(?:c3-event-rect-)([0-9]+)/
-  scope.mode = 'lines'
+  bindTarget = $('#c3-target-line')
 
   chart = c3.generate {
     bindto: '#c3-target-line',
-    size: { height: 500 },
     transition: {
       duration: 500
     },
@@ -163,13 +162,11 @@ dataLoaded = (scope, element, attrs) ->
     loadChart removeIds
 
   # Rendering callbacks
-  watches = []
-
-  watches.push scope.$watch 'line.data', ->
+  scope.$watch 'line.data', ->
     scope.page.loaded += 1
     draw()
 
-  watches.push scope.$watch 'displayColumn.name', (newValue, oldValue) ->
+  scope.$watch 'displayColumn.name', (newValue, oldValue) ->
     return if newValue is oldValue
     # Clear caches when changing columns
     cachedColumns = {}
@@ -177,15 +174,15 @@ dataLoaded = (scope, element, attrs) ->
     currentIds = []
     draw()
 
-  watches.push scope.$watch 'events.show', (newValue, oldValue) ->
+  scope.$watch 'events.show', (newValue, oldValue) ->
     return if newValue is oldValue
     showEvents()
 
-  watches.push scope.$watch 'year.current', (newValue, oldValue) ->
+  scope.$watch 'year.current', (newValue, oldValue) ->
     return if newValue is oldValue
     showEvents()
 
-  watches.push scope.$watch 'charts.singleMode', (newValue, oldValue) ->
+  scope.$watch 'charts.singleMode', (newValue, oldValue) ->
     return if newValue is oldValue
     if newValue
       element.hide()
@@ -196,7 +193,7 @@ dataLoaded = (scope, element, attrs) ->
     currentIds = []
     draw()
 
-  watches.push scope.$watch 'charts.displayMode', (newValue, oldValue) ->
+  scope.$watch 'charts.displayMode', (newValue, oldValue) ->
     return if newValue is oldValue
     if scope.charts.displayMode == 'bars'
       chart.transform 'bar'

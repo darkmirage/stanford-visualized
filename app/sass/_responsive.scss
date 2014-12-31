@@ -1,0 +1,65 @@
+@media (max-width: $screen-xs - 1) {
+  .c3-bind-target {
+    height: 240px;
+    max-height: 240px !important;
+  }
+
+  .charts-body {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: $screen-md - 1) {
+  .btn-lg {
+    padding: 6px 12px !important;
+    font-size: 14px !important;
+    line-height: 1.42857143 !important;
+  }
+
+  .toolbar-wide-button {
+    min-width: 0;
+  }
+}
+
+@media (min-width: $screen-xs) and (max-width: $screen-lg - 1) {
+  .c3-bind-target {
+    height: 320px;
+    max-height: 320px !important;
+  }
+
+  .charts-body {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .navbar-collapse {
+    // border: 1px solid red !important;
+  }
+}
+
+@media (min-width: $screen-lg) and (max-width: $screen-xl - 1) {
+  .charts-body {
+    margin-top: 100px;
+    padding-top: 30px;
+    padding-right: 9px;
+  }
+
+  .c3-bind-target {
+    height: 320px;
+    max-height: 320px !important;
+  }
+}
+
+@media (min-width: $screen-xl) {
+  .charts-body {
+    margin-top: 60px;
+    padding-top: 30px;
+    padding-right: 19px;
+  }
+
+  .c3-bind-target {
+    height: 480px;
+    max-height: 480px !important;
+  }
+}

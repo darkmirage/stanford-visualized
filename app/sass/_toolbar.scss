@@ -9,7 +9,7 @@
   position: fixed;
   margin-top: 0;
   top: 0;
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255,255,255,0.75);
   transition-duration: 0.4s;
 }
 
@@ -25,6 +25,7 @@
 
 .toolbar-event {
   white-space: nowrap;
+  display: inline-block;
 }
 
 .toolbar-event-text {
@@ -37,9 +38,29 @@
     cursor: pointer;
     font-size: 16px;
   }
+
+  li .fa-check {
+    visibility: hidden;
+    color: #aaa;
+    font-size: 12px;
+    margin-right: 14px;
+  }
+
+  li.disabled .fa-check {
+    visibility: visible;
+  }
+
+  li.active .fa-check {
+    visibility: visible;
+    color: #fff;
+  }
 }
 
 .toolbar-wide-button {
   text-transform: capitalize;
   min-width: 110px;
+}
+
+.fixed-toolbar-desktop, .fixed-toolbar-mobile {
+  padding-top: 5px;
 }
