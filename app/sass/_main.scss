@@ -58,6 +58,17 @@ svg {
 
 .page-header {
   margin-bottom: 50px;
+
+  h1 {
+    font-size: 50px;
+    font-weight: 400;
+    color: #8C1515;
+
+    em {
+      font-weight: 300;
+      color: #000;
+    }
+  }
 }
 
 .color-label {
