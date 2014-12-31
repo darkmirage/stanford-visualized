@@ -17,7 +17,6 @@ dataLoaded = (scope, element, attrs) ->
   currentColumns = []
   currentIds = []
 
-  c3RectClassMatcher = /(?:c3-event-rect-)([0-9]+)/
   bindTarget = $('#c3-target-line')
 
   chart = c3.generate {
@@ -88,14 +87,6 @@ dataLoaded = (scope, element, attrs) ->
 
     chart.xgrids events
 
-  bindRectsToChangeYear = ->
-    $('.c3-event-rect', element).on 'click', ->
-      match = $(this).attr('class').match c3RectClassMatcher
-      if match != null
-        year = parseInt(match[1]) + scope.year.min
-        scope.$apply ->
-          scope.changeYear year
-
   loadChart = (unload=[]) ->
     names = {}
     names[id] = scope.keys[id].name for id in currentIds
@@ -112,7 +103,6 @@ dataLoaded = (scope, element, attrs) ->
     else
       chart.groups []
 
-    bindRectsToChangeYear()
     showEvents()
 
   draw = ->
@@ -202,6 +192,7 @@ dataLoaded = (scope, element, attrs) ->
       chart.transform 'line'
       loadChart()
 
+  element.on 'click', scope.rectClickToChangeYearHandler
   element.on '$destroy', ->
     # Clear watches
     watch() for watch in watches

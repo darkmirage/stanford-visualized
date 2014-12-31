@@ -13,8 +13,6 @@ initSingle = (scope, element, attrs) ->
     dataLoaded scope, element, attrs
 
 dataLoaded = (scope, element, attrs) ->
-  c3RectClassMatcher = /(?:c3-event-rect-)([0-9]+)/
-
   element.hide()
 
   scope.description = ''
@@ -49,14 +47,6 @@ dataLoaded = (scope, element, attrs) ->
       }
     }
   }
-
-  bindRectsToChangeYear = ->
-    $('.c3-event-rect', element).on 'click', ->
-      match = $(this).attr('class').match c3RectClassMatcher
-      if match != null
-        year = parseInt(match[1]) + scope.year.min
-        scope.$apply ->
-          scope.changeYear year
 
   updateDescription = (prefix=scope.displayColumn.prefix) ->
     id = scope.filters.selected
@@ -96,8 +86,6 @@ dataLoaded = (scope, element, attrs) ->
       chart.groups []
 
     updateYear()
-    bindRectsToChangeYear()
-
 
   # Rendering callbacks
   watches = []
@@ -132,6 +120,7 @@ dataLoaded = (scope, element, attrs) ->
       chart.transform 'line'
       draw()
 
+  element.on 'click', scope.rectClickToChangeYearHandler
   element.on '$destroy', ->
     # Clear watches
     watch() for watch in watches
