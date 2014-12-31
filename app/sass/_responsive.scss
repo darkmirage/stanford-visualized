@@ -5,7 +5,7 @@
   }
 
   .charts-body {
-    margin-top: 30px;
+    margin-top: 0;
     margin-bottom: 30px;
   }
 }
@@ -19,6 +19,12 @@
 
   .toolbar-wide-button {
     min-width: 0;
+  }
+}
+
+@media (max-width: $screen-lg - 1) {
+  .page-header {
+    margin-bottom: 10px !important;
   }
 }
 
