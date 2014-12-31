@@ -12,7 +12,8 @@ app.directive 'navLink', ->
       parentScope = element.parent().scope()
       scope.isLinkActive = -> parentScope.isActive(scope.linkTarget)
 
-    template: '<li ng-class="{active:isLinkActive()}">
+    # Replace with <li ng-class="{active:isLinkActive()}"> for highlighting
+    template: '<li>
                  <a ng-href="#{{linkTarget}}">{{linkText}}</a>
                </li>'
   }

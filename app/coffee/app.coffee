@@ -2,8 +2,7 @@ angular.module 'stanfordViz', ['ngRoute', 'cfp.hotkeys']
   .config ($routeProvider) ->
     $routeProvider
       .when '/',        { templateUrl: 'views/home.html', controller: 'VizCtrl' }
-      .when '/contact', { templateUrl: 'views/contact.html', controller: 'ContactCtrl' }
-      .when '/faq',     { templateUrl: 'views/faq.html', controller: 'FaqCtrl' }
+      .when '/about',   { templateUrl: 'views/about.html', controller: 'AboutCtrl' }
       .otherwise        { redirectTo: '/' }
 
   .config (hotkeysProvider) ->

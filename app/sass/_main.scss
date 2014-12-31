@@ -30,3 +30,31 @@ svg {
 .cfp-hotkeys-close {
   border: 0;
 }
+
+.nav-header {
+  margin-bottom: 50px;
+
+  li {
+    float: left;
+
+    a {
+      color: #777;
+      font-size: 1.2em;
+      border-bottom: 2px solid transparent;
+      padding: 3px 0;
+      margin: 10px 15px;
+    }
+    a:hover, a:focus {
+      color: #000;
+      background: #fff;
+    }
+    a:hover {
+      border-bottom: 2px solid #000;
+      position: relative;
+    }
+  }
+}
+
+.page-header {
+  margin-bottom: 50px;
+}

@@ -11,18 +11,12 @@ appCtrl = ($scope, $location, hotkeys, pageMeta, windowResize) ->
   $scope.$on '$routeChangeStart', ->
     $scope.page.loading = true
 
-# Route: /contact
-contactCtrl = ($scope) ->
-  $scope.page.setTitle 'Contact'
-  $scope.page.loading = false
-
 # Route: /faq
-faqCtrl = ($scope) ->
-  $scope.page.setTitle 'FAQs'
+aboutCtrl = ($scope) ->
+  $scope.page.setTitle 'About'
   $scope.page.loading = false
 
 angular.module 'stanfordViz'
   .controller 'AppCtrl', ['$scope', '$location', 'hotkeys', 'pageMeta',
                           'windowResize', appCtrl]
-  .controller 'ContactCtrl', ['$scope', contactCtrl]
-  .controller 'FaqCtrl', ['$scope', faqCtrl]
+  .controller 'AboutCtrl', ['$scope', aboutCtrl]
