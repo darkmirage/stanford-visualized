@@ -193,6 +193,3 @@ dataLoaded = (scope, element, attrs) ->
       loadChart()
 
   element.on 'click', scope.rectClickToChangeYearHandler
-  element.on '$destroy', ->
-    # Clear watches
-    watch() for watch in watches
