@@ -22,7 +22,7 @@ angular.module 'stanfordViz', ['ngRoute', 'cfp.hotkeys']
             </tr>
           </tbody>
           </table>
-          <div class="cfp-hotkeys-close" ng-click="toggleCheatSheet()">
+          <div class="cfp-hotkeys-close">
             <i class="fa fa-times"></i>
           </div>
         </div>
