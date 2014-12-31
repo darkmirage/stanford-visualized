@@ -118,8 +118,6 @@ dataLoaded = (scope, element, attrs) ->
     removeIds = (id for id in currentIds when id not in ids)
     newIds = (id for id in ids when id not in currentIds)
 
-    return if removeIds.length is 0 and newIds.length is 0
-
     # Update current ID list
     currentIds = ids.slice 0
 
@@ -171,6 +169,10 @@ dataLoaded = (scope, element, attrs) ->
   scope.$watch 'year.current', (newValue, oldValue) ->
     return if newValue is oldValue
     showEvents()
+
+  scope.$watch 'charts.updateFlag', (newValue, oldValue) ->
+    return if newValue is oldValue
+    draw()
 
   scope.$watch 'charts.singleMode', (newValue, oldValue) ->
     return if newValue is oldValue

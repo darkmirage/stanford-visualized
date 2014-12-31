@@ -27,7 +27,7 @@
         <li ng-class="{disabled:charts.singleMode}">
           <a ng-click="toggleSingle()"
              title="Compare within major by gender"
-             data-toggle="tooltip" data-placement="bottom"
+             data-toggle="tooltip" data-placement="right"
              data-container="body"><i class="fa fa-check"></i>Compare</a>
         </li>
         <li ng-show="!charts.singleMode" class="divider"></li>
@@ -36,6 +36,12 @@
              title="Display as percentage of declared students"
              data-toggle="tooltip" data-placement="right"
              data-container="body"><i class="fa fa-check"></i>Percentage</a>
+        </li>
+        <li ng-class="{active:charts.colorBy === 'dept',hidden:charts.singleMode}">
+          <a ng-click="toggleDepartmentColors()"
+             title="Color charts by departments"
+             data-toggle="tooltip" data-placement="right"
+             data-container="body"><i class="fa fa-check"></i>School</a>
         </li>
     </ul>
   </div>
@@ -49,6 +55,12 @@
        title="Compare within major by gender"
        data-toggle="tooltip" data-placement="bottom"
        data-container="body"><i class="fa fa-users"></i></a>
+    <a class="btn btn-lg btn-default"
+       ng-class="{active:charts.colorBy === 'dept',disabled:charts.singleMode}"
+       ng-click="toggleDepartmentColors()"
+       title="Color charts by schools"
+       data-toggle="tooltip" data-placement="bottom"
+       data-container="body"><i class="fa fa-paint-brush"></i></a>
   </div>
 
   <div class="btn-group">

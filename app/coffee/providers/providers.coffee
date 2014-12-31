@@ -43,25 +43,48 @@ app.factory 'windowResize', ->
 
 # Display helpers for d3
 app.factory 'd3Display', ->
+  depts = [
+        "school_engr"
+        "school_biz"
+        "school_es"
+        "school_hs"
+        "school_law"
+        "school_med"
+        "school_educ"
+        "unaffliated"
+      ]
   seen = []
   color = d3.scale.category20()
+  deptColor = d3.scale.category10().domain(depts)
+  catColor = d3.scale.category10()
   filters = {}
   charts = {}
+  majorKeys = {}
+  defaultColor = d3.rgb(150, 150, 150)
 
   getColorById = (id) ->
     if charts.singleMode
       if id is filters.selected
-        d3.rgb(150, 150, 150)
+        defaultColor
       else
         switch id
           when '_men' then '#9467bd'
           when '_women' then '#ff7f0e'
-          else d3.rgb(150, 150, 150)
+          else defaultColor
 
-    else if id not in filters.id
-      d3.rgb(150, 150, 150)
     else
-      color(id)
+      switch charts.colorBy
+        when 'major'
+          if id not in filters.id
+            defaultColor
+          else
+            color(id)
+        when 'dept'
+          major = majorKeys[id]
+          if major
+            deptColor(major.school)
+          else
+            defaultColor
     
   return {
     formatCount: (count, percentages=false, sign=false, prec=2) ->
@@ -76,10 +99,11 @@ app.factory 'd3Display', ->
         seen.push(id)
         color.domain(seen)
 
-    initColor: (f, c) ->
-      filters = f
-      charts = c
-      seen = f.id.slice 0
+    initColor: (fltr, chrt, keys) ->
+      filters = fltr
+      charts = chrt
+      majorKeys = keys
+      seen = fltr.id.slice 0
       color.domain(seen)
 
     getColor: (d) ->
@@ -92,10 +116,10 @@ app.factory 'd3Display', ->
         if d.id is filters.selected
           1.0
         else
-          0.3
+          0.4
       else
         if d.id not in filters.id
-          0.3
+          0.4
         else
           1.0
   }

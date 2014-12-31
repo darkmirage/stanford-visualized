@@ -39,7 +39,9 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   $scope.charts = {
     dataLoaded: false
     singleMode: false
+    colorBy: 'major'
     displayMode: 'lines'
+    updateFlag: 0
   }
 
   $scope.toggleSingle = ->
@@ -57,6 +59,11 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   $scope.setLines = ->
     $scope.charts.displayMode = 'lines'
 
+  $scope.toggleDepartmentColors = ->
+    $scope.charts.colorBy =
+      if $scope.charts.colorBy is 'major' then 'dept' else 'major'
+    $scope.charts.updateFlag += 1
+
   # Data filters
   # ==========================================================================
   $scope.filters = {
@@ -65,8 +72,6 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
     cat: [],
     school: []
   }
-
-  d3Display.initColor($scope.filters, $scope.charts)
 
   $scope.toggleId = (id) ->
     unless $scope.charts.singleMode
@@ -247,6 +252,9 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
     $scope.year.max = d3.max $scope.data.years
     $scope.year.min = d3.min $scope.data.years
     $scope.changeYear($scope.year.max)
+
+    d3Display.initColor($scope.filters, $scope.charts, $scope.keys)
+
 
     updateLineData()
     updateSidebarData()

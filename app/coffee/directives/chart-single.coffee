@@ -88,22 +88,20 @@ dataLoaded = (scope, element, attrs) ->
     updateYear()
 
   # Rendering callbacks
-  watches = []
-
-  watches.push scope.$watch 'single.data', ->
+  scope.$watch 'single.data', ->
     updateDescription()
     draw()
 
-  watches.push scope.$watch 'displayColumn.prefix', (newValue, oldValue) ->
+  scope.$watch 'displayColumn.prefix', (newValue, oldValue) ->
     return if newValue is oldValue
     updateDescription(newValue)
     draw()
 
-  watches.push scope.$watch 'year.current', (newValue, oldValue) ->
+  scope.$watch 'year.current', (newValue, oldValue) ->
     return if newValue is oldValue
     updateYear()
 
-  watches.push scope.$watch 'charts.singleMode', (newValue, oldValue) ->
+  scope.$watch 'charts.singleMode', (newValue, oldValue) ->
     return if newValue is oldValue
     if newValue
       element.hide().fadeIn(1000)
@@ -111,7 +109,7 @@ dataLoaded = (scope, element, attrs) ->
       element.hide()
     draw()
 
-  watches.push scope.$watch 'charts.displayMode', (newValue, oldValue) ->
+  scope.$watch 'charts.displayMode', (newValue, oldValue) ->
     return if newValue is oldValue
     if scope.charts.displayMode == 'bars'
       chart.transform 'bar'
@@ -121,6 +119,3 @@ dataLoaded = (scope, element, attrs) ->
       draw()
 
   element.on 'click', scope.rectClickToChangeYearHandler
-  element.on '$destroy', ->
-    # Clear watches
-    watch() for watch in watches

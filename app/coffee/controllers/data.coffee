@@ -11,9 +11,10 @@ dataCtrl = ($scope, d3Config, d3Data, d3Helper) ->
 
   $scope.data = {
     aggregates: []
+    departments: []
     items: []
     years: []
-    updated: 0 # FLag watched by child controller
+    updated: 0 # Flag watched by child controller
   }
 
   # Reference keys for major and category descriptions
@@ -39,12 +40,14 @@ dataCtrl = ($scope, d3Config, d3Data, d3Helper) ->
   parseData = (data) ->
     years = d3Helper.uniqueValues(data, 'year')
     items = d3Filter(data, 'cat', ['aggr', 'dept'], true)
-    aggregates = d3Filter(data, 'cat', ['aggr', 'dept'])
+    aggregates = d3Filter(data, 'cat', ['aggr'])
+    departments = d3Filter(data, 'cat', ['dept'])
 
     createIndices items
 
     $scope.data.years = years
     $scope.data.aggregates = aggregates
+    $scope.data.departments = departments
     $scope.data.items = items
 
   saveKeys = (keys) ->

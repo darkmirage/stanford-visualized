@@ -248,6 +248,10 @@ dataLoaded = (scope, element, attrs) ->
     return if newValue is oldValue
     draw()
 
+  scope.$watch 'charts.updateFlag', (newValue, oldValue) ->
+    return if newValue is oldValue
+    draw()
+
   scope.$watchCollection 'filters.id', ->
     draw(300)
     scope.page.loaded += 1
