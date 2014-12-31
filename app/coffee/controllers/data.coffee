@@ -19,6 +19,7 @@ dataCtrl = ($scope, d3Config, d3Data, d3Helper) ->
 
   # Reference keys for major and category descriptions
   $scope.keys = {}
+  $scope.majorCount = 0
 
   createIndices = (items) ->
     majorToItems = $scope.indices.majorToItems
@@ -51,7 +52,9 @@ dataCtrl = ($scope, d3Config, d3Data, d3Helper) ->
     $scope.data.items = items
 
   saveKeys = (keys) ->
-    $scope.keys[key.id] = key for key in keys
+    for key in keys
+      $scope.keys[key.id] = key
+      $scope.majorCount += 1 if key.cat not in ['aggr', 'dept']
 
   d3Data.get(d3Config.path).then (result) ->
     parseData(result.data)

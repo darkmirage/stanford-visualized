@@ -122,6 +122,11 @@ app.factory 'd3Display', ->
           0.4
         else
           1.0
+
+    getSchoolColors: ->
+      colors = {}
+      colors[dept] = deptColor(dept) for dept in depts
+      colors
   }
 
 # Data manipulation helpers for d3

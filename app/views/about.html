@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-lg-8 col-lg-offset-2
+            col-sm-10 col-sm-offset-1">
+
+    <div class="row">
+
+      <div class="col-md-4 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Data</div>
+          <div class="panel-body">
+            This site was created using data provided by <a href="http://web.stanford.edu/dept/pres-provost/irds/">Institutional Research</a> at Stanford University and was scanned and digitized in 2014.
+          </div>
+          <table class="table">
+            <tr><td>Rows of data</td><td>{{ data.items.length + data.departments.length + data.aggregates.length }}</td></tr>
+            <tr><td>Years covered</td><td>{{ data.years.length }}</td></tr>
+            <tr><td>Number of majors</td><td>{{ majorCount }}</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Tech</div>
+          <div class="panel-body">
+            <h3><a class="label label-default label-danger" href="https://angularjs.org/">AngularJS</a></h3> 
+            <p>or general application logic.</p>
+            <h3><a class="label label-default label-primary" href="http://c3js.org/">C3.js</a></h3>
+            <p>for generating line charts.</p>
+            <h3><a class="label label-default label-warning" href="http://d3js.org/">D3.js</a></h3>
+            <p>for rendering interactive side bar.</p>
+          </div>
+        </div>
+      </div>
+
+      </div>
+      <div class="row">
+
+      <div class="col-md-4 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Colors</div>
+          <div class="panel-body">
+            This is the coloring scheme used to indicate each school. Some day I'll figure out a place to put this on the chart.
+          </div>
+          <table class="table">
+            <tr ng-repeat="(dept, color) in depts"><td>{{ keys[dept].name }}</td><td><span class="color-label" ng-style="{'background-color':color}">{{ color }}</span></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Majors</div>
+          <div class="panel-body">
+            Some of these correspond to actual abbreviations used by the school, but most of them were created ad-hoc during data processing as needed.
+          </div>
+          <table class="table">
+            <th>ID</th><th>Name</th>
+            <tr ng-repeat="major in majorFilter(keys)">
+              <td ng-style="{'color':depts[major.school]}">{{ major.id }}</td><td>{{ major.name }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</div>

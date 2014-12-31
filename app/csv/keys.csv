@@ -1,11 +1,11 @@
 id,name,school,cat
 undeclared,Undeclared,misc,aggr
 total,Total,total,aggr
-school_biz,SCHOOL OF BUSINESS,dept,dept
+school_biz,School of Business,dept,dept
 business,Business Administration,school_biz,prof
 management,Management,school_biz,prof
 bizres,Business Research,school_biz,prof
-school_es,SCHOOL OF EARTH SCIENCES,dept,dept
+school_es,School of Earth Sciences,dept,dept
 appes,Applied Earth Sciences,school_es,engr
 eees,"Earth, Energy and Environmental Sciences",school_es,physci
 earthsys,Earth Systems,school_es,inter
@@ -18,12 +18,12 @@ geophys,Geophysics,school_es,physci
 minengr,Mineral Engineering,school_es,engr
 petrolengr,Petroleum Engineering,school_es,engr
 hydro,Hydrology,school_es,physci
-school_educ,SCHOOL OF EDUCATION,dept,dept
+school_educ,School of Education,dept,dept
 educ,Education,school_educ,hum
 educhum,Education and Humanities,school_educ,hum
 educbiz,Education Business,school_educ,hum
 healthed,Health Education,school_educ,hum
-school_engr,SCHOOL OF ENGINEERING,dept,dept
+school_engr,School of Engineering,dept,dept
 aa,Aeronautics and Astronautics,school_engr,engr
 bioe,Bioengineering,school_engr,engr
 chemeng,Chemical Engineering,school_engr,engr
@@ -46,7 +46,7 @@ me,Mechanical Engineering,school_engr,engr
 opsres,Operations Research,school_engr,math
 preengr,Pre-Engineering,school_engr,engr
 sccm,Scientific Computing and Computational Mathematics,school_engr,math
-school_hs,SCHOOL OF HUMANITIES AND SCIENCES,dept,dept
+school_hs,School of Humanities and Sciences,dept,dept
 aaas,African and African American Studies,school_hs,hum
 africast,African Studies,school_hs,hum
 amstud,American Studies,school_hs,hum
@@ -144,11 +144,11 @@ spanhum,Spanish and Humanities,school_hs,hum
 stats,Statistics,school_hs,math
 symsys,Symbolic Systems,school_hs,inter
 urbanst,Urban Studies,school_hs,socsci
-school_law,SCHOOL OF LAW,dept,dept
+school_law,School of Law,dept,dept
 law,Law,school_law,prof
 prelaw,Pre-Law,school_law,prof
 lawbiz,Law Business,school_law,prof
-school_med,SCHOOL OF MEDICINE,dept,dept
+school_med,School of Medicine,dept,dept
 medadp,Advanced Degree Programs,school_med,prof
 anatomy,Anatomy,school_med,prof
 bioc,Biochemistry,school_med,prof
@@ -179,4 +179,4 @@ sbio,Structural Biology,school_med,prof
 phystherapy,Physical Therapy,school_med,prof
 gradspec,Graduate Special Programs,misc,inter
 interdept,Interdepartmental,misc,inter
-unaffliated,UNAFFLIATED,dept,dept
+unaffliated,Unaffliated,dept,dept
