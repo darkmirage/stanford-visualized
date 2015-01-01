@@ -5,6 +5,7 @@
   <title ng-bind="page.fullTitle">Stanford Visualized</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf-8">
+  <base href="/">
 
   <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic|Raleway:500|Metrophobic' rel='stylesheet'>
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
@@ -34,11 +35,9 @@
     <div class="row">
       <div class="pull-right">
         <ul class="nav nav-header">
-          <nav-link target="/" text="Home"></nav-link>
-          <nav-link target="/about" text="About"></nav-link>
-          <li>
-            <a href="http://web.stanford.edu/~jcx/">Contact</a>
-          </li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="http://web.stanford.edu/~jcx/">Contact</a></li>
         </ul>
       </div>
     </div>

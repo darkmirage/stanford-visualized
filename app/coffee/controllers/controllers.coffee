@@ -1,8 +1,7 @@
 # This is the parent controller to all routes
-appCtrl = ($scope, $location, hotkeys, pageMeta, windowResize) ->
+appCtrl = ($scope, hotkeys, pageMeta, windowResize) ->
   $scope.page = pageMeta
   $scope.windowResize = windowResize
-  $scope.isActive = (route) -> route == $location.path()
   $scope.toggleHelp = -> hotkeys.toggleCheatSheet()
 
   # Page loading screen
@@ -23,6 +22,6 @@ aboutCtrl = ($scope, d3Display, d3Helper) ->
     return arr
 
 angular.module 'stanfordViz'
-  .controller 'AppCtrl', ['$scope', '$location', 'hotkeys', 'pageMeta',
-                          'windowResize', appCtrl]
+  .controller 'AppCtrl', ['$scope', 'hotkeys', 'pageMeta', 'windowResize',
+                          appCtrl]
   .controller 'AboutCtrl', ['$scope', 'd3Display', 'd3Helper', aboutCtrl]

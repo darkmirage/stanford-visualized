@@ -5,6 +5,11 @@ angular.module 'stanfordViz', ['ngRoute', 'cfp.hotkeys']
       .when '/about',   { templateUrl: 'views/about.html', controller: 'AboutCtrl' }
       .otherwise        { redirectTo: '/' }
 
+  .config ($locationProvider) ->
+    $locationProvider
+      .html5Mode true
+      .hashPrefix '!'
+
   .config (hotkeysProvider) ->
     hotkeysProvider.template =
       '<div class="cfp-hotkeys-container fade" ng-class="{in: helpVisible}" style="display: none;">
