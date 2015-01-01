@@ -59,6 +59,7 @@ GEM
       cssmin (>= 1.0.3)
       jsmin (>= 1.0.1)
     jsmin (1.0.1)
+    json (1.8.1)
     listen (2.8.4)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -88,6 +89,9 @@ GEM
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
+    uglifier (2.5.3)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
 
 PLATFORMS
   ruby
@@ -102,3 +106,4 @@ DEPENDENCIES
   jammit
   rake
   sinatra
+  uglifier

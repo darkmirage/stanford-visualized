@@ -29,7 +29,12 @@ task reinstall: [:reset, :install]
 
 task guard: ['bower_components'] do
   puts 'Starting guard...'
-  system 'bundle exec guard --no-interactions'
+  system 'bundle exec guard --no-interactions -g shared development'
+end
+
+task build: ['bower_components', :clean] do
+  puts 'Building static site...'
+  system 'bundle exec guard --no-interactions -g shared production'
 end
 
 task sinatra: ['bower_components'] do

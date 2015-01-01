@@ -1,6 +1,5 @@
 gzip_assets: off
-compress_assets: on
-javascript_compressor: uglifier
+compress_assets: off
 
 javascripts:
   app.min:

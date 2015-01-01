@@ -10,4 +10,5 @@ group :development do
   gem 'jammit'
   gem 'sinatra'
   gem 'rake'
+  gem 'uglifier'
 end

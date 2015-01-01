@@ -175,7 +175,7 @@ app.service 'd3Data', ['$q', 'd3Config', ($q, d3Config) ->
       result[column] = +d[column]
     return result
 
-   {
+  return {
     get: ->
       defer = $q.defer()
       d3.csv d3Config.keyPath, null, (error, keys) ->

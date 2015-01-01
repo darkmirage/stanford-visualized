@@ -1,16 +1,18 @@
 angular.module 'stanfordViz', ['ngRoute', 'cfp.hotkeys']
-  .config ($routeProvider) ->
+  .config ['$routeProvider', ($routeProvider) ->
     $routeProvider
       .when '/',        { templateUrl: 'views/home.html', controller: 'VizCtrl' }
       .when '/about',   { templateUrl: 'views/about.html', controller: 'AboutCtrl' }
       .otherwise        { redirectTo: '/' }
+  ]
 
-  .config ($locationProvider) ->
+  .config ['$locationProvider', ($locationProvider) ->
     $locationProvider
       .html5Mode true
       .hashPrefix '!'
+  ]
 
-  .config (hotkeysProvider) ->
+  .config ['hotkeysProvider', (hotkeysProvider) ->
     hotkeysProvider.template =
       '<div class="cfp-hotkeys-container fade" ng-class="{in: helpVisible}" style="display: none;">
         <div class="cfp-hotkeys" ng-click="toggleCheatSheet()">
@@ -32,6 +34,7 @@ angular.module 'stanfordViz', ['ngRoute', 'cfp.hotkeys']
           </div>
         </div>
       </div>';
+  ]
 
   .constant 'd3Config', {
     path: './csv/data.csv'
