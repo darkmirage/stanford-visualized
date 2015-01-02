@@ -1,22 +1,8 @@
 <div class="row">
-  <div class="col-lg-8 col-lg-offset-2
+  <div class="col-lg-9 col-lg-offset-1
             col-sm-10 col-sm-offset-1">
 
     <div class="row">
-
-      <div class="col-md-4 col-sm-6">
-        <div class="panel panel-default">
-          <div class="panel-heading">Data</div>
-          <div class="panel-body">
-            This site was created using data provided by <a href="http://web.stanford.edu/dept/pres-provost/irds/">Institutional Research</a> at Stanford University and was scanned and digitized in 2014.
-          </div>
-          <table class="table">
-            <tr><td>Rows of data</td><td>{{ data.items.length + data.departments.length + data.aggregates.length }}</td></tr>
-            <tr><td>Years covered</td><td>{{ data.years.length }}</td></tr>
-            <tr><td>Number of majors</td><td>{{ majorCount }}</td></tr>
-          </table>
-        </div>
-      </div>
 
       <div class="col-md-4 col-sm-6">
         <div class="panel panel-default">
@@ -29,6 +15,20 @@
             <h3><a class="label label-default label-warning" href="http://d3js.org/">D3.js</a></h3>
             <p>for rendering interactive side bar.</p>
           </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">Data</div>
+          <div class="panel-body">
+            This site was created using data provided by <a href="http://web.stanford.edu/dept/pres-provost/irds/">Institutional Research</a> at Stanford University and was scanned and digitized in 2014.
+          </div>
+          <table class="table">
+            <tr><td>Rows of data</td><td>{{ data.items.length + data.departments.length + data.aggregates.length }}</td></tr>
+            <tr><td>Years covered</td><td>{{ data.years.length }}</td></tr>
+            <tr><td>Number of majors</td><td>{{ majorCount }}</td></tr>
+          </table>
         </div>
       </div>
 
