@@ -10,4 +10,19 @@
       <span class="toolbar-event-year"> {{ year.current }}</span>
     </div>
   </div>
+
+  <div class="btn-group hidden-lg pull-right toolbar-year-changer">
+    <a class="btn btn-lg btn-link"
+       ng-click="decreaseYear()" ng-class="{disabled:year.current === year.min}"
+       title="Go back one year"
+       data-toggle="tooltip" data-placement="bottom"
+       data-container="body"><i class="fa fa-caret-left"></i></a>
+    <a class="btn btn-lg btn-link"
+       ng-click="increaseYear()" ng-class="{disabled:year.current === year.max}"
+       title="Go forward one year"
+       data-toggle="tooltip" data-placement="bottom"
+       data-container="body"><i class="fa fa-caret-right"></i></a>
+  </div>
+
+
 </div>

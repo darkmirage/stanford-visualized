@@ -81,7 +81,6 @@ dataLoaded = (scope, element, attrs) ->
 
     groups.exit().remove()
 
-
     # Draw background
     groupsEnter.append 'rect'
       .attr 'class', 'bar-background'
@@ -91,14 +90,13 @@ dataLoaded = (scope, element, attrs) ->
       .attr 'fill-opacity', 0
       .attr 'title', (d) -> scope.keys[d.id].name
       .attr 'data-toggle', 'tooltip'
-      .attr 'data-placement', 'right'
+      .attr 'data-placement', 'bottom'
       .attr 'data-container', 'body'
 
     backgrounds = groups.select '.bar-background'
 
     backgrounds.transition()
       .attr 'width', svgJ.width()
-      .attr 'fill-opacity', 1.0
       .duration duration
       .delay groupTransitionDuration
 
@@ -221,8 +219,7 @@ dataLoaded = (scope, element, attrs) ->
       .duration duration
       .delay groupTransitionDuration
 
-
-    $('.bar-background', svgJ).tooltip()
+    activateTooltips(svgJ)
 
     # User interaction callbacks
     groupsEnter.each ->

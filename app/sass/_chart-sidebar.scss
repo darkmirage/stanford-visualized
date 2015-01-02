@@ -13,18 +13,19 @@
     }
 
     .chart-sidebar-toolbar {
-      visibility: visible;
+      opacity: 1.0;
     }
   }
 }
 
 .chart-sidebar-toolbar {
-  visibility: hidden;
+  opacity: 0;
   margin-bottom: 20px;
+  padding-right: 50px;
 }
 
 .bar-compare {
-  visibility: hidden;
+  opacity: 0;
 }
 
 .bar-count {
@@ -53,7 +54,7 @@
     }
 
     .bar-compare {
-      visibility: visible;
+      opacity: 1.0;
     }
   }
 }

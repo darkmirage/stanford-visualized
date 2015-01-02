@@ -3,7 +3,7 @@
   position: fixed;
   margin-top: 0;
   top: 0;
-  background-color: rgba(255,255,255,0.75);
+  // background-color: rgba(255,255,255,0.75);
   transition-duration: 0.4s;
 }
 
@@ -21,6 +21,9 @@
 .toolbar-event {
   white-space: nowrap;
   display: inline-block;
+  background-color: rgba(255,255,255,0.75);
+  padding: 0 20px;
+  border-radius: 10px;
 }
 
 .toolbar-event-text {
@@ -60,8 +63,16 @@
   padding-top: 5px;
 }
 
+.fixed-toolbar {
+  padding-bottom: 5px;
+}
+
 .top-toolbars:hover {
   .not-fixed-toolbar {
     opacity: 1.0;
   }
+}
+
+.toolbar-year-changer {
+  margin-right: 35px;
 }

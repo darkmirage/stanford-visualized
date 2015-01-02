@@ -1,5 +1,5 @@
 # This is the parent controller to all routes
-appCtrl = ($scope, hotkeys, pageMeta, windowResize) ->
+appCtrl = ($scope, $window, hotkeys, pageMeta, windowResize) ->
   $scope.page = pageMeta
   $scope.windowResize = windowResize
   $scope.toggleHelp = -> hotkeys.toggleCheatSheet()
@@ -9,6 +9,11 @@ appCtrl = ($scope, hotkeys, pageMeta, windowResize) ->
   $scope.page.loading = true
   $scope.$on '$routeChangeStart', ->
     $scope.page.loading = true
+
+  # Only activate Bootstrap tooltip if not on mobile
+  $window.activateTooltips = (parent) ->
+    unless /(iPad|iPhone|iPod)/g.test(navigator.userAgent) or window.innerWidth < 992
+      $(parent).find('[data-toggle="tooltip"]').tooltip()
 
 # Route: /faq
 aboutCtrl = ($scope, d3Display, d3Helper) ->
@@ -22,6 +27,6 @@ aboutCtrl = ($scope, d3Display, d3Helper) ->
     return arr
 
 angular.module 'stanfordViz'
-  .controller 'AppCtrl', ['$scope', 'hotkeys', 'pageMeta', 'windowResize',
+  .controller 'AppCtrl', ['$scope', '$window', 'hotkeys', 'pageMeta', 'windowResize',
                           appCtrl]
   .controller 'AboutCtrl', ['$scope', 'd3Display', 'd3Helper', aboutCtrl]

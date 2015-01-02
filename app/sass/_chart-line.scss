@@ -1,13 +1,13 @@
 .charts-body {
   &:hover {
     .chart-line-toolbar, .chart-single-toolbar {
-      visibility: visible;
+      opacity: 1.0;
     }
   }
 }
 
 .chart-line-toolbar, .chart-single-toolbar {
-  visibility: hidden;
+  opacity: 0;
 }
 
 .c3-bind-target text {

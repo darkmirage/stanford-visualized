@@ -1,25 +1,27 @@
-<div class="chart-sidebar-toolbar row">
+<div class="chart-sidebar-toolbar">
 <div class="pull-right">
 
-  <a ng-click="decreaseYear()" ng-class="{invisible:year.current === year.min}"
-       class="btn btn-link">
-      <i class="fa fa-caret-left"></i>
-  </a>
+  <div class="visible-lg-inline-block">
+    <a ng-click="decreaseYear()" ng-class="{invisible:year.current === year.min}"
+         class="btn btn-link btn-lg">
+        <i class="fa fa-caret-left"></i>
+    </a>
 
-  <a ng-click="increaseYear()" ng-class="{invisible:year.current === year.max}"
-       class="btn btn-link">
-      <i class="fa fa-caret-right"></i>
-  </a>
+    <a ng-click="increaseYear()" ng-class="{invisible:year.current === year.max}"
+         class="btn btn-link btn-lg">
+        <i class="fa fa-caret-right"></i>
+    </a>
+  </div>
 
   <a ng-click="clearIds()" ng-class="{invisible:charts.singleMode || filters.id.length === 0}"
      title="Clear selected majors" data-toggle="tooltip"
      data-placement="top" data-container="body"
-     class="btn btn-link">
+     class="btn btn-link btn-lg">
     <i class="fa fa-times"></i>
   </a>
 </div>
 </div>
 
 <script>
-  $('.chart-sidebar-toolbar [data-toggle="tooltip"]').tooltip()
+  activateTooltips('.chart-sidebar-toolbar');
 </script>

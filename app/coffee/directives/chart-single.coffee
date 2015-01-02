@@ -24,7 +24,7 @@ dataLoaded = (scope, element, attrs) ->
       duration: 500
     },
     padding: {
-      right: 30
+      right: 2
     },
     data: {
       x: 'year',
