@@ -27,7 +27,7 @@ group :shared do
                 to: target_dir,
                 mkpath: true,
                 run_at_start: build_at_start do
-    watch(%r{.+\.(html|csv|json)$})
+    watch(%r{.+\.(html|csv|json|png|jpg)$})
   end
 
 end

@@ -37,8 +37,8 @@ angular.module 'stanfordViz', ['ngRoute', 'cfp.hotkeys']
   ]
 
   .constant 'd3Config', {
-    path: './csv/data.csv'
-    keyPath: './csv/keys.csv'
+    path: './assets/csv/data.csv'
+    keyPath: './assets/csv/keys.csv'
     sidebarEntries: 30
     defaultMajors: ['cs', 'econ', 'history']
     dataColumns: {
