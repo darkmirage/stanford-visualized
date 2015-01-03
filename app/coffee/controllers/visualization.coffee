@@ -34,6 +34,7 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
   $scope.single = {
     data: []
     show: false
+    years: []
   }
 
   $scope.charts = {
@@ -230,7 +231,6 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
     id = $scope.filters.selected
 
     prefix = $scope.displayColumn.prefix
-    columns = []
     men = (0 for [0..numYears])
     women = (0 for [0..numYears])
 
@@ -238,23 +238,19 @@ vizCtrl = ($scope, hotkeys, events, d3Config, d3Helper, d3Display) ->
       men[d.year - yearStart + 1] = d[prefix + '_men']
       women[d.year - yearStart + 1] = d[prefix + '_women']
 
-    men.unshift '_men'
-    women.unshift '_women'
+    men[0] = '_men'
+    women[0] = '_women'
 
-    years = $scope.data.years.slice 0
-    years.unshift 'year'
-
-    columns = [men, women, years]
-
-    $scope.single.data = columns
+    $scope.single.data = [men, women, $scope.single.years]
 
   initCharts = ->
     $scope.year.max = d3.max $scope.data.years
     $scope.year.min = d3.min $scope.data.years
     $scope.changeYear($scope.year.max)
+    $scope.single.years = $scope.data.years.slice 0
+    $scope.single.years.unshift 'year'
 
     d3Display.initColor($scope.filters, $scope.charts, $scope.keys)
-
 
     updateLineData()
     updateSidebarData()
