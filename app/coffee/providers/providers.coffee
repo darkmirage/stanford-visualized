@@ -52,6 +52,7 @@ app.factory 'd3Display', ->
         "school_med"
         "school_educ"
         "unaffliated"
+        "contstudies"
       ]
   seen = []
   color = d3.scale.category20()
