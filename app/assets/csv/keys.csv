@@ -1,11 +1,11 @@
 id,name,school,cat
 undeclared,Undeclared,misc,aggr
 total,Total,total,aggr
-school_biz,School of Business,dept,dept
+school_biz,SCHOOL OF BUSINESS,dept,dept
 business,Business Administration,school_biz,prof
 management,Management,school_biz,prof
 bizres,Business Research,school_biz,prof
-school_es,School of Earth Sciences,dept,dept
+school_es,SCHOOL OF EARTH SCIENCES,dept,dept
 appes,Applied Earth Sciences,school_es,engr
 eees,"Earth, Energy and Environmental Sciences",school_es,physci
 earthsys,Earth Systems,school_es,inter
@@ -18,12 +18,12 @@ geophys,Geophysics,school_es,physci
 minengr,Mineral Engineering,school_es,engr
 petrolengr,Petroleum Engineering,school_es,engr
 hydro,Hydrology,school_es,physci
-school_educ,School of Education,dept,dept
+school_educ,SCHOOL OF EDUCATION,dept,dept
 educ,Education,school_educ,hum
 educhum,Education and Humanities,school_educ,hum
 educbiz,Education Business,school_educ,hum
 healthed,Health Education,school_educ,hum
-school_engr,School of Engineering,dept,dept
+school_engr,SCHOOL OF ENGINEERING,dept,dept
 aa,Aeronautics and Astronautics,school_engr,engr
 bioe,Bioengineering,school_engr,engr
 chemeng,Chemical Engineering,school_engr,engr
@@ -37,6 +37,7 @@ engrsci,Engineering Science,school_engr,engr
 engr_es,Engineering-Economic Systems,school_engr,engr
 engr_esor,Engineering-Economic Systems and Operations Research,school_engr,engr
 enve,Environmental Engineering,school_engr,engr
+envse,Environmental Systems Engineering,school_engr,engr
 genengr,General Engineering,school_engr,engr
 idm_engr,Individually Designed Major in Engineering,school_engr,engr
 ie,Industrial Engineering,school_engr,engr
@@ -46,13 +47,14 @@ me,Mechanical Engineering,school_engr,engr
 opsres,Operations Research,school_engr,math
 preengr,Pre-Engineering,school_engr,engr
 sccm,Scientific Computing and Computational Mathematics,school_engr,math
-school_hs,School of Humanities and Sciences,dept,dept
+school_hs,SCHOOL OF HUMANITIES AND SCIENCES,dept,dept
 aaas,African and African American Studies,school_hs,hum
 africast,African Studies,school_hs,hum
 amstud,American Studies,school_hs,hum
 anthsci,Anthropological Sciences,school_hs,socsci
 anthro,Anthropology,school_hs,socsci
 archlgy,Archaeology,school_hs,socsci
+aephys,Applied and Engineering Physics,school_hs,physci
 appphys,Applied Physics,school_hs,physci
 appmech,Applied Mechanics,school_hs,physci
 architect,Architecture,school_hs,hum
@@ -63,7 +65,7 @@ artstudi,Art Practice,school_hs,hum
 asnamst,Asian American Studies,school_hs,hum
 bio,Biology,school_hs,physci
 biophys,Biophysics,school_hs,physci
-chs,Chicana/o and Latina/o Studies,school_hs,hum
+chs,Chicana and Chicano Studies,school_hs,hum
 chem,Chemistry,school_hs,physci
 chinese,Chinese,school_hs,hum
 classics,Classics,school_hs,hum
@@ -85,7 +87,7 @@ engfrenlit,English and French Literature,school_hs,hum
 engitalit,English and Italian Literature,school_hs,hum
 enggerlit,English and German Literature,school_hs,hum
 engspnlit,English and Spanish Literature,school_hs,hum
-femst,Feminist Studies,school_hs,hum
+femst,"Feminist, Gender, and Sexuality Studies",school_hs,hum
 filmstud,Film and Media Studies,school_hs,hum
 finmath,Financial Mathematics,school_hs,math
 foodres,Food Research,school_hs,physci
@@ -144,11 +146,11 @@ spanhum,Spanish and Humanities,school_hs,hum
 stats,Statistics,school_hs,math
 symsys,Symbolic Systems,school_hs,inter
 urbanst,Urban Studies,school_hs,socsci
-school_law,School of Law,dept,dept
+school_law,SCHOOL OF LAW,dept,dept
 law,Law,school_law,prof
 prelaw,Pre-Law,school_law,prof
 lawbiz,Law Business,school_law,prof
-school_med,School of Medicine,dept,dept
+school_med,SCHOOL OF MEDICINE,dept,dept
 medadp,Advanced Degree Programs,school_med,prof
 anatomy,Anatomy,school_med,prof
 bioc,Biochemistry,school_med,prof
@@ -179,4 +181,6 @@ sbio,Structural Biology,school_med,prof
 phystherapy,Physical Therapy,school_med,prof
 gradspec,Graduate Special Programs,misc,inter
 interdept,Interdepartmental,misc,inter
-unaffliated,Unaffliated,dept,dept
+unaffliated,UNAFFLIATED,dept,dept
+contstudies,STANFORD CONTINUING STUDIES,dept,dept
+mla,Master of Liberal Arts,contstudies,hum

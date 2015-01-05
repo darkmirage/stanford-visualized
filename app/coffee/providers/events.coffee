@@ -55,5 +55,6 @@ app.factory 'events', ->
       '2010': ['WikiLeaks cables']
       '2011': ['Fukushima earthquake']
       '2012': ['Facebook IPOs']
+      '2013': ['Bitcoin tops $1200']
     }
   }
